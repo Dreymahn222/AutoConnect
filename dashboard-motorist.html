@@ -1,83 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Motorist Dashboard</title>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Dashboard</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Bottom Nav (Mobile focus) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logo { font-size: 1.5em; font-weight: bold; color: var(--primary-color); }
+        .icon-btn { font-size: 1.2em; color: var(--text-color); margin-left: 15px; }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .welcome {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        /* Card Layout */
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .view-all {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        /* Quick Action Grid (Stacked on Mobile) */
+        .quick-actions {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .action-btn {
+            padding: 15px;
+            text-align: center;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+        }
+        .btn-mechanic { background-color: var(--primary-color); }
+        .btn-parts { background-color: var(--secondary-color); }
+
+        /* List Items */
+        .list-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9em;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .status-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            background-color: #ffe0b2;
+            color: #e65100;
+        }
+        .status-confirmed { background-color: #c8e6c9; color: var(--secondary-color); }
+
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+        /* Spacing for bottom nav */
+        .container {
+            padding-bottom: 70px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body data-page="dashboard-motorist">
+<body>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="brand" href="index.html">MechMarket</a>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <nav class="nav" id="navMenu">
-      <a href="index.html">Home</a>
-      <a href="search.html">Search</a>
-      <a href="mechanic.html">Mechanics</a>
-      <a href="item.html">Parts</a>
-      <a href="messages.html">Messages</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart <span id="cart-badge"></span></a>
-    </nav>
-  </header>
-
-  <main class="container">
-    <h1>Welcome, [Motorist Name]</h1>
-
-    <!-- Active Bookings -->
-    <section class="card dashboard-section">
-      <h3>Active Bookings</h3>
-      <div class="grid bookings-grid">
-        <div class="card center">
-          <strong>Joe Auto Repairs</strong>
-          <p>Oil Change — 27 Nov 2025 • 10:00 AM</p>
-          <button class="btn" onclick="viewBooking('b1')">View</button>
+    <header class="header">
+        <div class="logo">AutoConnect</div>
+        <div>
+            <a href="#" class="icon-btn"><i class="fas fa-bell"></i></a>
+            <a href="#" class="icon-btn"><i class="fas fa-user-circle"></i></a>
         </div>
-        <div class="card center">
-          <strong>FastFix Mechanics</strong>
-          <p>Brake Replacement — 28 Nov 2025 • 2:00 PM</p>
-          <button class="btn" onclick="viewBooking('b2')">View</button>
+    </header>
+
+    <div class="container">
+        <h2 class="welcome">Welcome Back, John!</h2>
+
+        <div class="quick-actions">
+            <a href="mechanic_search.html" class="action-btn btn-mechanic">Book a Service Now</a>
+            <a href="inventory_search.html" class="action-btn btn-parts">Shop Auto Parts</a>
         </div>
-      </div>
-    </section>
 
-    <!-- Saved Parts -->
-    <section class="card dashboard-section">
-      <h3>Saved Parts</h3>
-      <div class="grid saved-parts-grid">
-        <div class="card center">
-          <img src="https://via.placeholder.com/100x60?text=Brake+Pads" alt="Brake Pads"/>
-          <div>Brake Pads</div>
-          <div>$70 • New • 12 in stock</div>
-          <button class="btn" onclick="viewPart('p1')">View</button>
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-calendar-check"></i> Upcoming Booking</h3>
+                <a href="my_bookings.html" class="view-all">View All</a>
+            </div>
+            <div class="list-item">
+                <p style="font-weight: bold;">Engine Diagnostics</p>
+                <p>Mechanic: **Ace Auto Repair**</p>
+                <p>Date: **Dec 5th, 10:00 AM**</p>
+                <span class="status-pill status-confirmed">Confirmed</span>
+            </div>
         </div>
-        <div class="card center">
-          <img src="https://via.placeholder.com/100x60?text=Oil+Filter" alt="Oil Filter"/>
-          <div>Oil Filter</div>
-          <div>$20 • New • 30 in stock</div>
-          <button class="btn" onclick="viewPart('p2')">View</button>
+
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-truck"></i> Recent Order</h3>
+                <a href="my_orders.html" class="view-all">View All</a>
+            </div>
+            <div class="list-item">
+                <p style="font-weight: bold;">Brake Pad Set (Front)</p>
+                <p>Order ID: #AC9876</p>
+                <p>Status: **Shipped**</p>
+                <span class="status-pill" style="background-color: #bbdefb; color: #1565c0;">In Transit</span>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Recent Activity -->
-    <section class="card dashboard-section">
-      <h3>Recent Activity</h3>
-      <ul>
-        <li>Purchased Oil Change — 20 Nov 2025</li>
-        <li>Rated Joe Auto Repairs — 5 stars</li>
-      </ul>
-    </section>
+        <div class="card">
+            <div class="card-header">
+                <h3>Top Rated Mechanics Near You</h3>
+            </div>
+            <div style="display: flex; overflow-x: scroll; gap: 15px; padding-bottom: 10px;">
+                <div style="min-width: 120px; text-align: center;">
+                    <i class="fas fa-car-side" style="font-size: 2em; color: var(--primary-color);"></i>
+                    <p style="font-weight: bold; margin: 5px 0 0;">Pete's Garage</p>
+                    <small>4.9 <i class="fas fa-star" style="color: gold;"></i> (150)</small>
+                </div>
+                <div style="min-width: 120px; text-align: center;">
+                    <i class="fas fa-car-side" style="font-size: 2em; color: var(--primary-color);"></i>
+                    <p style="font-weight: bold; margin: 5px 0 0;">Fix-It Pro</p>
+                    <small>4.7 <i class="fas fa-star" style="color: gold;"></i> (80)</small>
+                </div>
+                 <div style="min-width: 120px; text-align: center;">
+                    <i class="fas fa-car-side" style="font-size: 2em; color: var(--primary-color);"></i>
+                    <p style="font-weight: bold; margin: 5px 0 0;">Engine Experts</p>
+                    <small>4.5 <i class="fas fa-star" style="color: gold;"></i> (210)</small>
+                </div>
+            </div>
+        </div>
 
-    <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-  </main>
+    </div>
 
-  <script src="app.js"></script>
-  <script>
-    function viewBooking(id){ alert('View booking ' + id); }
-    function viewPart(id){ alert('View part ' + id); }
-  </script>
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="mechanic_search.html" class="nav-item"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="my_bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Bookings</span></a>
+        <a href="my_orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+    </div>
+
+    <script>
+        // Placeholder JS for dashboard interaction
+        console.log("Motorist Dashboard loaded.");
+    </script>
+
 </body>
 </html>
