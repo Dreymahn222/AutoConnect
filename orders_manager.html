@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Manager</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Order Tabs */
+        .order-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .order-tabs button {
+            flex-grow: 1;
+            padding: 12px 0;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .order-tabs button.active {
+            color: var(--primary-color);
+            background-color: #f0f8ff;
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Order Card */
+        .order-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .order-header h3 { margin: 0; font-size: 1.1em; }
+        .order-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-new { background-color: #ffe0b2; color: #e65100; }
+        .status-processing { background-color: #bbdefb; color: #1565c0; }
+        .status-shipped { background-color: var(--secondary-color); color: white; }
+
+        .order-info p { margin: 3px 0; font-size: 0.9em; }
+
+        .item-list {
+            margin-top: 10px;
+            font-size: 0.85em;
+        }
+        .item-list li {
+            margin-left: 15px;
+        }
+        
+        .actions {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        .actions button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .btn-ready { background-color: var(--secondary-color); color: white; }
+        .btn-view { background-color: #eee; color: var(--text-color); }
+
+
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Parts Orders Manager</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="order-tabs">
+            <button class="active" onclick="showOrders('new')">New (2)</button>
+            <button onclick="showOrders('processing')">Processing (1)</button>
+            <button onclick="showOrders('shipped')">Shipped (15)</button>
+        </div>
+
+        <div id="new-orders">
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Order #AC9901</h3>
+                    <span class="order-status status-new">NEW ORDER</span>
+                </div>
+                <div class="order-info">
+                    <p>Customer: **Jane Doe**</p>
+                    <p>Total: **$73.99** | Date: Dec 14, 2025</p>
+                    <p>Type: **Shipping** (Address: 456 Elm St)</p>
+                    <div class="item-list">Items:
+                        <ul>
+                            <li>(1) Ceramic Brake Pads</li>
+                            <li>(2) Oil Filters</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn-ready" onclick="alert('Order AC9901 marked as Processing')"><i class="fas fa-box"></i> Prepare Shipment</button>
+                    <button class="btn-view" onclick="alert('View full details for AC9901')">View Details</button>
+                </div>
+            </div>
+
+             <div class="order-card">
+                <div class="order-header">
+                    <h3>Order #AC9902</h3>
+                    <span class="order-status status-new">NEW ORDER</span>
+                </div>
+                <div class="order-info">
+                    <p>Customer: **Mike K.**</p>
+                    <p>Total: **$15.00** | Date: Dec 14, 2025</p>
+                    <p>Type: **Local Pickup**</p>
+                    <div class="item-list">Items:
+                        <ul>
+                            <li>(1) Used Cabin Filter</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn-ready" onclick="alert('Order AC9902 marked as Ready for Pickup')"><i class="fas fa-hand-holding"></i> Ready for Pickup</button>
+                    <button class="btn-view" onclick="alert('View full details for AC9902')">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="processing-orders" style="display: none;">
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Order #AC9899</h3>
+                    <span class="order-status status-processing">PROCESSING</span>
+                </div>
+                 <div class="order-info">
+                    <p>Customer: **Sam T.**</p>
+                    <p>Total: **$55.00** | Date: Dec 13, 2025</p>
+                    <p>Type: **Shipping**</p>
+                    <div class="item-list">Items: (1) Spark Plug Set</div>
+                </div>
+                <div class="actions">
+                    <button class="btn-ready" onclick="alert('Marked AC9899 as Shipped - Requires Tracking Entry')"><i class="fas fa-truck"></i> Mark Shipped</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="bottom-nav">
+        <a href="mechanic_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="bookings_manager.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Bookings</span></a>
+        <a href="inventory_management.html" class="nav-item"><i class="fas fa-boxes"></i><span>Inventory</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-truck"></i><span>Orders</span></a>
+        <a href="payments_report.html" class="nav-item"><i class="fas fa-dollar-sign"></i><span>Payments</span></a>
+    </div>
+
+    <script>
+        function showOrders(tab) {
+            document.getElementById('new-orders').style.display = 'none';
+            document.getElementById('processing-orders').style.display = 'none';
+            // Placeholder for shipped orders: document.getElementById('shipped-orders').style.display = 'none';
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.order-tabs button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activate current tab
+            document.querySelector(`[onclick="showOrders('${tab}')"]`).classList.add('active');
+
+            if (tab === 'new') {
+                document.getElementById('new-orders').style.display = 'block';
+            } else if (tab === 'processing') {
+                document.getElementById('processing-orders').style.display = 'block';
+            }
+            // Add logic for 'shipped' section here
+        }
+    </script>
+
+</body>
+</html>
