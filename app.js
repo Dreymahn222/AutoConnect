@@ -114,7 +114,9 @@ function renderCheckoutItems(){
   container.appendChild(totalDiv);
 }
 
-// Checkout place order
+// =========================
+// PLACE ORDER ON CHECKOUT PAGE
+// =========================
 const placeOrderBtn = document.getElementById('place-order-btn');
 if(placeOrderBtn){
   placeOrderBtn.addEventListener('click', () => {
@@ -190,7 +192,7 @@ if(searchInput){
 }
 
 // =========================
-// INITIALIZE
+// INITIALIZE ON PAGE LOAD
 // =========================
 updateCartBadge();
 renderCartItems();
