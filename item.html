@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Item</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brake Pads - AutoConnect</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>AutoConnect</h1>
+    <nav>
+      <div id="menuToggle">☰</div>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
+        <li><a href="messages.html">Messages</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header class="header">
-  <a class="brand" href="index.html">MechMarket</a>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <nav class="nav" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="search.html">Search</a>
-    <a href="mechanic.html">Mechanics</a>
-    <a href="item.html" class="active">Parts</a>
-    <a href="messages.html">Messages</a>
-    <a href="login.html">Login</a>
-    <a href="cart.html">Cart <span id="cart-badge"></span></a>
-  </nav>
-</header>
+  <main class="container">
+    <section class="card center">
+      <h2>Brake Pads</h2>
+      <p>Price: $70</p>
+      <p>Description: High-quality brake pads for all car models.</p>
+      <button class="btn" onclick="addToCart('Brake Pads', 70)">Add to Cart</button>
+    </section>
+  </main>
 
-<main class="container">
-  <section class="card center">
-    <h1>Brake Pads</h1>
-    <img src="https://via.placeholder.com/200x120?text=Brake+Pads" alt="Brake Pads"/>
-    <p>Price: $70</p>
-    <p>Condition: New</p>
-    <p>Available: 12 in stock</p>
-    <button class="btn">Add to Cart</button>
-  </section>
-
-  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
