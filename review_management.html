@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Management</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Summary Card */
+        .summary-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .summary-card h2 { margin-top: 0; font-size: 1.8em; color: var(--text-color); }
+        .star-rating {
+            color: gold;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .review-count {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Review Item */
+        .review-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .review-header strong { font-size: 1.1em; }
+        .review-body {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            margin-bottom: 10px;
+        }
+
+        /* Reply Section */
+        .reply-area textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            min-height: 80px;
+            resize: vertical;
+        }
+        .reply-area button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .mechanic-response {
+            background-color: #f0f8ff;
+            padding: 10px;
+            border-left: 3px solid var(--primary-color);
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            /* NOTE: This nav bar is typically not included on the Review page in a limited mobile nav, 
+               but is included here for completeness of the 5-item menu previously defined. */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Review Management</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="summary-card">
+            <div class="star-rating">
+                <i class="fas fa-star"></i> 4.7
+            </div>
+            <h2>Excellent Rating</h2>
+            <p class="review-count">Based on 254 customer reviews</p>
+        </div>
+
+        <h3 style="font-size: 1.2em; border-bottom: 1px solid #ccc; padding-bottom: 10px;">New Reviews (Awaiting Response)</h3>
+
+        <div class="review-item">
+            <div class="review-header">
+                <strong>John D.</strong>
+                <span class="star-rating" style="font-size: 1em;">5 <i class="fas fa-star"></i></span>
+            </div>
+            <small>Service: Tire Rotation | Dec 14, 2025</small>
+            <div class="review-body">
+                <p>Fast and professional service. The team was clear about the pricing upfront. Will definitely use Ace Auto again!</p>
+            </div>
+            
+            <div class="reply-area">
+                <textarea placeholder="Write your public response..."></textarea>
+                <button onclick="alert('Response submitted for review 1')">Submit Reply</button>
+            </div>
+        </div>
+        
+         <div class="review-item">
+            <div class="review-header">
+                <strong>Mike T.</strong>
+                <span class="star-rating" style="font-size: 1em; color: var(--danger-color);">2 <i class="fas fa-star"></i></span>
+            </div>
+            <small>Service: Engine Repair | Nov 28, 2025</small>
+            <div class="review-body">
+                <p>My repair took three days longer than promised and cost 20% more than the quote. Disappointed with the communication.</p>
+            </div>
+            
+            <p style="font-weight: bold; margin-bottom: 5px;">Your Response:</p>
+            <div class="mechanic-response">
+                <p>We apologize for the delay and cost overrun. We found an unexpected secondary issue which we communicated immediately, but we understand your frustration. We've sent you a direct message to discuss a credit.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="mechanic_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="bookings_manager.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Bookings</span></a>
+        <a href="inventory_management.html" class="nav-item"><i class="fas fa-boxes"></i><span>Inventory</span></a>
+        <a href="orders_manager.html" class="nav-item"><i class="fas fa-truck"></i><span>Orders</span></a>
+        <a href="payments_report.html" class="nav-item"><i class="fas fa-dollar-sign"></i><span>Payments</span></a>
+    </div>
+
+    <script>
+        console.log("Review Management page loaded.");
+    </script>
+
+</body>
+</html>
