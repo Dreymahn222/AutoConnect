@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Cart</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="cart">
+
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html" class="active">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Your Shopping Cart</h1>
+
+    <section class="card cart-items" style="margin-top:16px;">
+      <div id="cart-list">
+        <div class="cart-item grid">
+          <div>
+            <img src="https://via.placeholder.com/100x60?text=Alternator" alt="Alternator"/>
+          </div>
+          <div>
+            <h3>Alternator</h3>
+            <p>Sold by: <a href="mechanic.html?id=m1">Joe Auto Repairs</a></p>
+            <p>$150 per unit</p>
+          </div>
+          <div>
+            <label for="qty1">Qty:</label>
+            <input type="number" id="qty1" value="1" min="1"/>
+          </div>
+          <div>
+            <p>Total: $150</p>
+            <button class="btn" onclick="removeCartItem('Alternator')">Remove</button>
+          </div>
+        </div>
+
+        <div class="cart-item grid">
+          <div>
+            <img src="https://via.placeholder.com/100x60?text=Brake+Pads" alt="Brake Pads"/>
+          </div>
+          <div>
+            <h3>Brake Pads</h3>
+            <p>Sold by: <a href="mechanic.html?id=m2">FastFix Mechanics</a></p>
+            <p>$70 per unit</p>
+          </div>
+          <div>
+            <label for="qty2">Qty:</label>
+            <input type="number" id="qty2" value="2" min="1"/>
+          </div>
+          <div>
+            <p>Total: $140</p>
+            <button class="btn" onclick="removeCartItem('Brake Pads')">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;text-align:right;">
+        <strong>Grand Total: $290</strong>
+        <button class="btn" style="margin-left:12px;" onclick="goToCheckout()">Proceed to Checkout</button>
+      </div>
+    </section>
+
+    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function removeCartItem(itemName){
+      alert('Remove ' + itemName + ' from cart (JS placeholder)');
+    }
+    function goToCheckout(){
+      location.href='checkout.html';
+    }
+  </script>
+</body>
+</html>

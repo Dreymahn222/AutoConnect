@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Home</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="home">
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="card hero">
+      <div class="left">
+        <h1 style="margin:0 0 8px 0">Find Trusted Mechanics & Genuine Parts Near You</h1>
+        <p class="small" style="margin:0 0 12px 0">Search by service, part name, car model, or location.</p>
+        <form id="homeSearch" class="search-box" onsubmit="event.preventDefault(); location.href='search.html'">
+          <input type="text" id="home-q" placeholder="What service or part do you need? e.g., alternator, oil change" />
+          <select id="home-service" style="width:180px">
+            <option value="any">All services</option>
+            <option>Engine</option>
+            <option>Electrical</option>
+            <option>Tyres</option>
+            <option>Diagnostics</option>
+          </select>
+          <button class="btn">Search</button>
+        </form>
+        <div style="margin-top:12px">
+          <span class="pill">Engine</span>
+          <span class="pill">Tyres</span>
+          <span class="pill">Electrical</span>
+          <span class="pill">Suspension</span>
+        </div>
+      </div>
+      <div class="side card center" style="padding:12px">
+        <img src="https://via.placeholder.com/320x180?text=Workshop" style="width:100%;border-radius:8px;margin-bottom:12px"/>
+        <div style="font-weight:700">Joe Auto Repairs</div>
+        <div class="small">★ 4.6 • Lusaka</div>
+        <div style="margin-top:10px"><button class="btn" onclick="location.href='mechanic.html?id=m1'">View Profile</button></div>
+      </div>
+    </section>
+
+    <!-- Featured Mechanics -->
+    <h3 style="margin-top:18px">Featured Mechanics</h3>
+    <div id="featured-mechanics" class="grid" style="margin-top:8px">
+      <!-- Populated dynamically by JS -->
+    </div>
+
+    <!-- Trending Parts -->
+    <h3 style="margin-top:18px">Trending Parts</h3>
+    <div id="trending-items" class="grid" style="margin-top:8px">
+      <!-- Populated dynamically by JS -->
+    </div>
+
+    <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-backdrop"><div class="modal"></div></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Mechanic Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="dashboard-mechanic">
+
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html" class="active">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Welcome, [Mechanic Name]</h1>
+
+    <!-- Orders -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Recent Orders</h3>
+      <div id="orders-list" class="grid">
+        <div class="card center">
+          <strong>Mary K.</strong>
+          <p>Oil Change — 27 Nov 2025 • 10:00 AM</p>
+          <button class="btn" onclick="viewOrder('o1')">View</button>
+        </div>
+        <div class="card center">
+          <strong>John D.</strong>
+          <p>Brake Pads — Purchased 26 Nov 2025</p>
+          <button class="btn" onclick="viewOrder('o2')">View</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inventory Management -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Inventory</h3>
+      <button class="btn" onclick="addInventoryItem()">Add New Item</button>
+      <div id="inventory-list" class="grid" style="margin-top:8px;">
+        <div class="card center">
+          <img src="https://via.placeholder.com/100x60?text=Alternator" alt="Alternator"/>
+          <div>Alternator</div>
+          <div>$150 • New • 5 in stock</div>
+          <button class="btn" onclick="editInventoryItem('Alternator')">Edit</button>
+        </div>
+        <div class="card center">
+          <img src="https://via.placeholder.com/100x60?text=Brake+Pads" alt="Brake Pads"/>
+          <div>Brake Pads</div>
+          <div>$70 • New • 12 in stock</div>
+          <button class="btn" onclick="editInventoryItem('Brake Pads')">Edit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Listings -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Services Offered</h3>
+      <ul id="services-list">
+        <li>Oil Change — $50 <button class="btn" onclick="editService('Oil Change')">Edit</button></li>
+        <li>Brake Replacement — $120 <button class="btn" onclick="editService('Brake Replacement')">Edit</button></li>
+        <li>Engine Diagnostics — $80 <button class="btn" onclick="editService('Engine Diagnostics')">Edit</button></li>
+      </ul>
+    </section>
+
+    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function viewOrder(id){
+      alert('View order details for ' + id + ' (JS placeholder)');
+    }
+    function addInventoryItem(){
+      alert('Add new inventory item popup (JS placeholder)');
+    }
+    function editInventoryItem(itemName){
+      alert('Edit inventory item: ' + itemName + ' (JS placeholder)');
+    }
+    function editService(serviceName){
+      alert('Edit service: ' + serviceName + ' (JS placeholder)');
+    }
+  </script>
+</body>
+</html>

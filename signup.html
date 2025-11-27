@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Sign Up</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="signup">
+
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <section class="card signup-card center" style="max-width:500px;margin:auto;margin-top:40px;padding:20px;">
+      <h2>Create Your Account</h2>
+
+      <form id="signupForm" onsubmit="event.preventDefault(); signupUser()">
+        <div style="margin-top:12px;">
+          <label>
+            <input type="radio" name="role" value="motorist" checked /> Motorist
+          </label>
+          <label style="margin-left:12px;">
+            <input type="radio" name="role" value="mechanic" /> Mechanic
+          </label>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" placeholder="Enter your full name" required/>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter your email" required/>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label for="password">Password:</label>
+          <input type="password" id="password" placeholder="Enter password" required/>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label for="confirm-password">Confirm Password:</label>
+          <input type="password" id="confirm-password" placeholder="Confirm password" required/>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label for="location">Location:</label>
+          <input type="text" id="location" placeholder="City or Area" required/>
+        </div>
+
+        <button class="btn" style="margin-top:16px;width:100%;">Sign Up</button>
+      </form>
+
+      <p style="margin-top:12px; text-align:center;">Already have an account? <a href="login.html">Login here</a></p>
+    </section>
+
+    <footer class="footer card center" style="margin-top:40px;">© 2025 MechMarket • About • Contact • Terms</footer>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function signupUser() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm-password').value;
+      const location = document.getElementById('location').value;
+      const role = document.querySelector('input[name="role"]:checked').value;
+
+      if(password !== confirm){
+        alert('Passwords do not match!');
+        return;
+      }
+
+      alert('Signup attempted for ' + role + ' with email: ' + email + ' (JS placeholder)');
+    }
+  </script>
+
+</body>
+</html>

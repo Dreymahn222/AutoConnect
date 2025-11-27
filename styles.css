@@ -1,0 +1,186 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Header */
+.header {
+  background: #222;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header .brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.header .nav a {
+  margin-left: 15px;
+  color: #fff;
+}
+
+.header .nav a.active {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  background: #222;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+/* Forms */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"] {
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Grids */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specific Elements */
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mechanic-profile .grid {
+  gap: 20px;
+}
+
+.item-images img {
+  max-width: 100%;
+}
+
+.thumbnail-row img {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px 120px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.messages-container {
+  display: flex;
+  gap: 12px;
+}
+
+.conversations ul, .messages-list {
+  list-style: none;
+}
+
+.conversations ul li {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.conversations ul li:hover {
+  background: #f0f0f0;
+}
+
+.message.sender {
+  text-align: right;
+  margin-bottom: 6px;
+}
+
+.message.receiver {
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+/* Responsive */
+@media(max-width: 768px){
+  .grid, .messages-container {
+    flex-direction: column;
+  }
+
+  .cart-item {
+    grid-template-columns: 1fr 1fr;
+  }
+}

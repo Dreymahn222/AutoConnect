@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Motorist Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="dashboard-motorist">
+
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Welcome, [Motorist Name]</h1>
+
+    <!-- Active Bookings -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Active Bookings</h3>
+      <div id="active-bookings" class="grid">
+        <div class="card center">
+          <strong>Joe Auto Repairs</strong>
+          <p>Oil Change — 27 Nov 2025 • 10:00 AM</p>
+          <button class="btn" onclick="viewBooking('b1')">View Details</button>
+        </div>
+        <div class="card center">
+          <strong>FastFix Mechanics</strong>
+          <p>Brake Replacement — 28 Nov 2025 • 2:00 PM</p>
+          <button class="btn" onclick="viewBooking('b2')">View Details</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saved Parts / Wishlist -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Saved Parts</h3>
+      <div id="saved-parts" class="grid">
+        <div class="card center">
+          <img src="https://via.placeholder.com/100x60?text=Brake+Pads" alt="Brake Pads"/>
+          <div>Brake Pads</div>
+          <button class="btn" onclick="viewItem('Brake Pads')">View</button>
+        </div>
+        <div class="card center">
+          <img src="https://via.placeholder.com/100x60?text=Alternator" alt="Alternator"/>
+          <div>Alternator</div>
+          <button class="btn" onclick="viewItem('Alternator')">View</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="card dashboard-section" style="margin-top:16px;">
+      <h3>Recent Activity</h3>
+      <ul id="recent-activity">
+        <li>Booked Oil Change with Joe Auto Repairs on 27 Nov 2025</li>
+        <li>Added Alternator to cart</li>
+        <li>Rated Brake Replacement service ★ 5 at FastFix Mechanics</li>
+      </ul>
+    </section>
+
+    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function viewBooking(id){
+      alert('View booking details for ' + id + ' (JS placeholder)');
+    }
+    function viewItem(itemName){
+      alert('View item: ' + itemName + ' (JS placeholder)');
+    }
+  </script>
+
+</body>
+</html>

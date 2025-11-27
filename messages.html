@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MechMarket — Messages</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-page="messages">
+
+  <!-- Header -->
+  <header class="header">
+    <a class="brand" href="index.html">MechMarket</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="mechanic.html">Mechanics</a>
+      <a href="item.html">Parts</a>
+      <a href="messages.html" class="active">Messages</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html">Cart <span id="cart-badge"></span></a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Messages</h1>
+
+    <section class="card messages-container grid" style="margin-top:16px;">
+      <!-- Conversation List -->
+      <div class="conversations" style="width:30%; border-right:1px solid #ccc; padding-right:8px;">
+        <h3>Conversations</h3>
+        <ul id="conversation-list">
+          <li onclick="openConversation('c1')">Joe Auto Repairs</li>
+          <li onclick="openConversation('c2')">FastFix Mechanics</li>
+        </ul>
+      </div>
+
+      <!-- Message Thread -->
+      <div class="messages-thread" style="width:70%; padding-left:8px;">
+        <h3>Conversation</h3>
+        <div id="messages-list" class="messages-list card" style="height:300px; overflow-y:auto; padding:8px;">
+          <div class="message sender">
+            <strong>You:</strong> Hi, I wanted to check availability for an oil change.
+          </div>
+          <div class="message receiver">
+            <strong>Joe Auto Repairs:</strong> Sure! We have openings tomorrow at 10:00 AM.
+          </div>
+        </div>
+        <div style="margin-top:8px;">
+          <input type="text" id="messageInput" placeholder="Type a message..." style="width:80%; padding:6px;"/>
+          <button class="btn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    function openConversation(id){
+      alert('Open conversation: ' + id + ' (JS placeholder)');
+    }
+    function sendMessage(){
+      const msg = document.getElementById('messageInput').value;
+      if(msg){
+        alert('Message sent: ' + msg + ' (JS placeholder)');
+        document.getElementById('messageInput').value = '';
+      }
+    }
+  </script>
+</body>
+</html>
