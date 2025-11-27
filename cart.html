@@ -1,51 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Cart</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - AutoConnect</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>AutoConnect</h1>
+    <nav>
+      <div id="menuToggle">☰</div>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
+        <li><a href="messages.html">Messages</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header class="header">
-  <a class="brand" href="index.html">MechMarket</a>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <nav class="nav" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="search.html">Search</a>
-    <a href="mechanic.html">Mechanics</a>
-    <a href="item.html">Parts</a>
-    <a href="messages.html">Messages</a>
-    <a href="login.html">Login</a>
-    <a href="cart.html" class="active">Cart</a>
-  </nav>
-</header>
+  <main class="container">
+    <section class="card">
+      <!-- Cart items rendered dynamically by JS -->
+    </section>
+  </main>
 
-<main class="container">
-  <section class="card">
-    <h2>Your Cart</h2>
-    <div class="cart-item center">
-      <img src="https://via.placeholder.com/100x60?text=Brake+Pads" alt="Brake Pads"/>
-      <div>Brake Pads</div>
-      <div>Quantity: 1</div>
-      <div>Price: $70</div>
-      <button class="btn">Remove</button>
-    </div>
-    <div class="cart-item center">
-      <img src="https://via.placeholder.com/100x60?text=Oil+Filter" alt="Oil Filter"/>
-      <div>Oil Filter</div>
-      <div>Quantity: 2</div>
-      <div>Price: $40</div>
-      <button class="btn">Remove</button>
-    </div>
-    <p><strong>Total: $110</strong></p>
-    <button class="btn">Proceed to Checkout</button>
-  </section>
-
-  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
