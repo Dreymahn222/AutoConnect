@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AutoConnect</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #556080; /* Darker Admin Blue/Gray */
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f1f4f9; /* Light admin background */
+            --border-radius: 8px;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Container */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 { margin: 0; font-size: 1.6em; }
+        .container {
+            padding: 20px 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+        .stat-card h4 {
+            margin: 0 0 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Card Layout for Management */
+        .card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .card h2 { margin-top: 0; font-size: 1.4em; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+
+        /* User List Items (Pending Approvals) */
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9em;
+        }
+        .user-item:last-child { border-bottom: none; }
+        .user-details strong { display: block; }
+        .user-type { color: #888; font-size: 0.85em; }
+
+        .action-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .btn-approve { background-color: var(--secondary-color); color: white; }
+        .btn-deny { background-color: #ff9800; color: white; }
+        .btn-ban { background-color: var(--danger-color); color: white; }
+        
+        /* System Controls */
+        .system-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+        .system-control:last-child { border-bottom: none; }
+        .control-label { font-weight: bold; }
+        .control-action button {
+            background-color: #00bcd4;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* Desktop Optimization */
+        @media (min-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 columns on wider screens */
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>AutoConnect Admin Panel</h1>
+        <p>System Oversight and Management</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Total Users</h4>
+                <div class="stat-value">5,821</div>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--secondary-color);">
+                <h4>Active Mechanics</h4>
+                <div class="stat-value" style="color: var(--secondary-color);">124</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #ff9800;">
+                <h4>Pending Approvals</h4>
+                <div class="stat-value" style="color: #ff9800;">7</div>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--danger-color);">
+                <h4>Open Disputes</h4>
+                <div class="stat-value" style="color: var(--danger-color);">2</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-user-plus"></i> Pending Mechanic Approvals (3)</h2>
+            
+            <div class="user-item">
+                <div class="user-details">
+                    <strong>Quick Fix Garage</strong>
+                    <span class="user-type">New Registration | 2 days ago</span>
+                </div>
+                <div>
+                    <button class="action-btn btn-approve" onclick="alert('Approved Quick Fix Garage')">Approve</button>
+                    <button class="action-btn btn-deny" onclick="alert('Denied Quick Fix Garage')">Deny</button>
+                </div>
+            </div>
+
+            <div class="user-item">
+                <div class="user-details">
+                    <strong>Joe's Mobile Repair</strong>
+                    <span class="user-type">Pending Docs Review | 1 week ago</span>
+                </div>
+                <div>
+                    <button class="action-btn btn-approve" onclick="alert('Approved Joe\'s Mobile Repair')">Approve</button>
+                    <button class="action-btn btn-deny" onclick="alert('Denied Joe\'s Mobile Repair')">Deny</button>
+                </div>
+            </div>
+            
+            <a href="#" style="display: block; text-align: center; margin-top: 15px; color: var(--primary-color);">View All Approvals</a>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-search"></i> Search & User Actions</h2>
+            <div style="margin-bottom: 15px;">
+                <input type="text" placeholder="Search by User ID, Email, or Business Name..." 
+                       style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+            
+            <div class="user-item">
+                <div class="user-details">
+                    <strong>Sam Smith</strong>
+                    <span class="user-type">Motorist (ID: 4501) | Last Login: Today</span>
+                </div>
+                <div>
+                    <button class="action-btn" style="background-color: #ffc107; color: var(--text-color);" onclick="alert('Opened Account Edit Modal')">Edit</button>
+                    <button class="action-btn btn-ban" onclick="alert('Confirmed Ban for Sam Smith?')"><i class="fas fa-ban"></i> Ban</button>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-cog"></i> System Controls</h2>
+            
+            <div class="system-control">
+                <span class="control-label">Service Fee Rate</span>
+                <span class="control-action">10% <button style="background-color: #00bcd4;" onclick="alert('Opens Fee Edit Modal')">Edit</button></span>
+            </div>
+            
+            <div class="system-control">
+                <span class="control-label">Platform Maintenance Mode</span>
+                <span class="control-action">
+                    <button style="background-color: var(--danger-color);" onclick="alert('Warning: Activate maintenance mode?')">Activate</button>
+                </span>
+            </div>
+            
+            <div class="system-control">
+                <span class="control-label">Run Daily Report Generation</span>
+                <span class="control-action">
+                    <button onclick="alert('Daily reports queued.')">Run Now</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log("Admin Dashboard loaded.");
+    </script>
+
+</body>
+</html>
