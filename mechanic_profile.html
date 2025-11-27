@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Auto Repair - Profile</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 70px; /* Space for sticky booking button */
+        }
+        
+        /* Header and Back Button */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .back-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background-color: white;
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-header h1 {
+            margin: 5px 0 0;
+            font-size: 1.8em;
+        }
+        .rating-display {
+            color: gold;
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+        .contact-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Section Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            border-bottom: 1px solid #ccc;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-tabs button {
+            flex-grow: 1;
+            padding: 12px 0;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-tabs button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            display: none;
+        }
+        .content-section h2 { margin-top: 0; font-size: 1.5em; }
+
+        /* Services List */
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        /* Reviews */
+        .review-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+        /* Sticky Booking Button */
+        .sticky-booking {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        .booking-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            font-size: 1.1em;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        
+        /* Default visible section */
+        #about-section { display: block; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="mechanic_search.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Search</a>
+    </header>
+
+    <div class="profile-header">
+        <i class="fas fa-tools" style="font-size: 4em; color: var(--primary-color);"></i>
+        <h1>Ace Auto Repair</h1>
+        <div class="rating-display">
+            <i class="fas fa-star"></i> 4.8 (254 Reviews)
+        </div>
+        <button class="contact-btn"><i class="fas fa-comment"></i> Contact Mechanic</button>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="active" onclick="showSection('about')">About</button>
+        <button onclick="showSection('services')">Services</button>
+        <button onclick="showSection('reviews')">Reviews</button>
+    </div>
+
+    <div id="about-section" class="content-section">
+        <h2>About Ace Auto Repair</h2>
+        <p>Ace Auto Repair has been serving the community for over 15 years. We specialize in engine diagnostics, brakes, and general maintenance. Certified ASE Master Technicians on staff!</p>
+        <p><strong>Hours:</strong> Mon-Fri 8:00 AM - 5:00 PM</p>
+        <p><strong>Address:</strong> 123 Main St, Anytown, USA</p>
+        <p style="background-color: #eee; padding: 10px; border-radius: 4px;">[Map Placeholder for Location]</p>
+    </div>
+
+    <div id="services-section" class="content-section">
+        <h2>Services & Pricing</h2>
+        <div class="service-item">
+            <span>Oil Change (Standard)</span>
+            <span>**$49.99**</span>
+        </div>
+        <div class="service-item">
+            <span>Brake Pad Replacement (Front)</span>
+            <span>**$150 - $250**</span>
+        </div>
+        <div class="service-item">
+            <span>Engine Diagnostics</span>
+            <span>**$99.00**</span>
+        </div>
+        <div class="service-item">
+            <span>Tire Rotation & Balance</span>
+            <span>**$60.00**</span>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9em; color: #666;">*Prices are estimates. Final quote provided upon booking confirmation.</p>
+    </div>
+
+    <div id="reviews-section" class="content-section">
+        <h2>Customer Reviews</h2>
+        <div class="review-card">
+            <div class="review-header">
+                <strong>Sarah L.</strong>
+                <span style="color: gold;">5 <i class="fas fa-star"></i></span>
+            </div>
+            <small>Service: Oil Change | Dec 2025</small>
+            <p style="margin-top: 5px;">Fast, friendly, and transparent pricing. Highly recommend Ace Auto Repair!</p>
+        </div>
+        <div class="review-card">
+            <div class="review-header">
+                <strong>Mike K.</strong>
+                <span style="color: gold;">4 <i class="fas fa-star"></i></span>
+            </div>
+            <small>Service: Brake Replacement | Nov 2025</small>
+            <p style="margin-top: 5px;">Good work, though the final price was slightly higher than the estimate. Still satisfied.</p>
+        </div>
+        <button class="contact-btn" style="background-color: #eee; color: var(--text-color); margin-top: 15px;">Load More Reviews</button>
+    </div>
+
+    <div class="sticky-booking">
+        <a href="#" class="booking-btn" onclick="alert('Proceeding to Booking Calendar/Form')">Request Booking</a>
+    </div>
+
+    <script>
+        // JS to handle tab switching
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Deactivate all buttons
+            document.querySelectorAll('.nav-tabs button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show the requested section
+            document.getElementById(sectionId + '-section').style.display = 'block';
+            // Activate the corresponding button
+            document.querySelector(`.nav-tabs button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
