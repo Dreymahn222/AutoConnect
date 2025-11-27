@@ -3,70 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Part Detail</title>
+  <title>MechMarket — Item</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
-<body data-page="item">
+<body>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="brand" href="index.html">MechMarket</a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="search.html">Search</a>
-      <a href="mechanic.html">Mechanics</a>
-      <a href="item.html" class="active">Parts</a>
-      <a href="messages.html">Messages</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart <span id="cart-badge"></span></a>
-    </nav>
-  </header>
+<header class="header">
+  <a class="brand" href="index.html">MechMarket</a>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <nav class="nav" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="search.html">Search</a>
+    <a href="mechanic.html">Mechanics</a>
+    <a href="item.html" class="active">Parts</a>
+    <a href="messages.html">Messages</a>
+    <a href="login.html">Login</a>
+    <a href="cart.html">Cart <span id="cart-badge"></span></a>
+  </nav>
+</header>
 
-  <!-- Main Content -->
-  <main class="container">
+<main class="container">
+  <section class="card center">
+    <h1>Brake Pads</h1>
+    <img src="https://via.placeholder.com/200x120?text=Brake+Pads" alt="Brake Pads"/>
+    <p>Price: $70</p>
+    <p>Condition: New</p>
+    <p>Available: 12 in stock</p>
+    <button class="btn">Add to Cart</button>
+  </section>
 
-    <section class="card item-detail grid">
-      <!-- Left: Part Images -->
-      <div class="item-images">
-        <img src="https://via.placeholder.com/300x200?text=Alternator" alt="Alternator Main Image" style="width:100%;border-radius:8px;margin-bottom:8px"/>
-        <div class="thumbnail-row">
-          <img src="https://via.placeholder.com/80x60?text=Alt+1" alt="Thumb1"/>
-          <img src="https://via.placeholder.com/80x60?text=Alt+2" alt="Thumb2"/>
-          <img src="https://via.placeholder.com/80x60?text=Alt+3" alt="Thumb3"/>
-        </div>
-      </div>
+  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
+</main>
 
-      <!-- Right: Part Info -->
-      <div class="item-info">
-        <h1 id="item-name">Alternator</h1>
-        <p id="item-price">$150</p>
-        <p id="item-condition">Condition: New</p>
-        <p id="item-stock">Stock: 5 units</p>
-        <p id="item-description">
-          High-quality alternator compatible with most 2010–2025 vehicles. Reliable performance, 12-month warranty.
-        </p>
-
-        <div style="margin-top:12px;">
-          <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" value="1" min="1" max="5"/>
-        </div>
-
-        <button class="btn" style="margin-top:12px;" onclick="addToCartItem()">Add to Cart</button>
-
-        <p style="margin-top:16px;">Sold by: <a href="mechanic.html?id=m1">Joe Auto Repairs</a></p>
-      </div>
-    </section>
-
-    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
-
-  </main>
-
-  <script src="app.js"></script>
-  <script>
-    function addToCartItem() {
-      const qty = document.getElementById('quantity').value;
-      alert(qty + ' item(s) added to cart (JS placeholder)');
-    }
-  </script>
+<script src="app.js"></script>
 </body>
 </html>
