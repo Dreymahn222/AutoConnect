@@ -6,63 +6,44 @@
   <title>MechMarket — Search</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
-<body data-page="search">
+<body>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="brand" href="index.html">MechMarket</a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="search.html" class="active">Search</a>
-      <a href="mechanic.html">Mechanics</a>
-      <a href="item.html">Parts</a>
-      <a href="messages.html">Messages</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart <span id="cart-badge"></span></a>
-    </nav>
-  </header>
+<header class="header">
+  <a class="brand" href="index.html">MechMarket</a>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <nav class="nav" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="search.html" class="active">Search</a>
+    <a href="mechanic.html">Mechanics</a>
+    <a href="item.html">Parts</a>
+    <a href="messages.html">Messages</a>
+    <a href="login.html">Login</a>
+    <a href="cart.html">Cart <span id="cart-badge"></span></a>
+  </nav>
+</header>
 
-  <!-- Main Content -->
-  <main class="container">
+<main class="container">
+  <section class="card">
+    <h2>Search Mechanics & Parts</h2>
+    <div class="form-group">
+      <input type="text" placeholder="Search by mechanic, part, service..." />
+      <button class="btn">Search</button>
+    </div>
+  </section>
 
-    <h1>Search Mechanics & Parts</h1>
+  <section class="card">
+    <h3>Search Results</h3>
+    <div class="grid search-results">
+      <div class="card center">Joe Auto Repairs</div>
+      <div class="card center">Brake Pads</div>
+      <div class="card center">FastFix Mechanics</div>
+      <div class="card center">Oil Filter</div>
+    </div>
+  </section>
 
-    <!-- Search Filters -->
-    <section class="card search-filters">
-      <form id="searchForm" onsubmit="event.preventDefault();">
-        <input type="text" id="search-query" placeholder="Search for service, part, or mechanic..." />
-        <select id="filter-service">
-          <option value="">All Services</option>
-          <option>Engine</option>
-          <option>Electrical</option>
-          <option>Tyres</option>
-          <option>Diagnostics</option>
-        </select>
-        <select id="filter-location">
-          <option value="">Any Location</option>
-          <option>Lusaka</option>
-          <option>Kitwe</option>
-          <option>Ndola</option>
-        </select>
-        <select id="filter-type">
-          <option value="">All Types</option>
-          <option>Mechanic</option>
-          <option>Part</option>
-        </select>
-        <button class="btn">Search</button>
-      </form>
-    </section>
+  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
+</main>
 
-    <!-- Search Results -->
-    <section class="search-results grid" id="search-results" style="margin-top:12px">
-      <!-- JS will populate mechanics or parts here -->
-      <div class="card center">No results found (placeholder)</div>
-    </section>
-
-    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
-
-  </main>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
