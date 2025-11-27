@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Contact Us</title>
+    <style>
+        /* ------------------------------------- */
+        /* CSS Reset & Variables (Inherited) */
+        /* ------------------------------------- */
+        :root {
+            --primary-color: #007BFF;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ------------------------------------- */
+        /* Header & Container */
+        /* ------------------------------------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .back-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* ------------------------------------- */
+        /* Form & Input Styling */
+        /* ------------------------------------- */
+        .contact-form-card {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        /* ------------------------------------- */
+        /* Other Contact Methods */
+        /* ------------------------------------- */
+        .other-methods {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .method-card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        .method-card h3 {
+            margin-top: 0;
+            color: var(--text-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+        <div class="logo">AutoConnect</div>
+        <a href="login.html" class="back-link">Login</a>
+    </header>
+
+    <div class="container">
+        <h1>Contact & Support</h1>
+
+        <div class="contact-form-card">
+            <h2 style="font-size: 1.3em; margin-top: 0;">Send Us a Message</h2>
+            <form onsubmit="handleContactSubmit(event)">
+                <div class="input-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject">
+                        <option>General Inquiry</option>
+                        <option>Booking Issue</option>
+                        <option>Part Order Issue</option>
+                        <option>Mechanic/Seller Support</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Submit Request</button>
+            </form>
+        </div>
+        
+        <div class="other-methods">
+            <h2 style="font-size: 1.3em;">Other Ways to Get Help</h2>
+            
+            <a href="#" style="text-decoration: none;">
+                <div class="method-card">
+                    <h3><i class="fas fa-question-circle" style="color: var(--primary-color);"></i> Visit Our FAQ</h3>
+                    <p style="margin: 5px 0 0;">Find instant answers to common questions about booking, parts, and accounts.</p>
+                </div>
+            </a>
+            
+            <a href="tel:+18005550199" style="text-decoration: none;">
+                <div class="method-card">
+                    <h3><i class="fas fa-phone" style="color: var(--primary-color);"></i> Call Us</h3>
+                    <p style="margin: 5px 0 0;">(800) 555-0199 | Available M-F, 9am - 5pm EST</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const subject = document.getElementById('subject').value;
+            
+            alert(`Thank you, ${name}! Your request regarding "${subject}" has been submitted.`);
+            // In a real application, this would send data via an AJAX request to a server endpoint.
+        }
+    </script>
+
+</body>
+</html>
