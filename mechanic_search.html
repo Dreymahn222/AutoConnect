@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Find a Mechanic</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px; /* Space for bottom nav */
+        }
+
+        /* Top Search & Filter Bar */
+        .top-bar {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .search-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+        }
+        .filter-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        /* Map & Toggle */
+        .map-section {
+            height: 180px;
+            background-color: #b3e5fc; /* Placeholder for map */
+            text-align: center;
+            line-height: 180px;
+            color: #1565c0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .toggle-view {
+            text-align: center;
+            padding: 10px 0;
+            background-color: white;
+            border-bottom: 1px solid #eee;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        .toggle-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Results List */
+        .results-list {
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .mechanic-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .mechanic-info {
+            flex-grow: 1;
+        }
+        .mechanic-info h3 {
+            margin: 0 0 5px;
+            font-size: 1.2em;
+        }
+        .rating {
+            color: gold;
+            margin-right: 10px;
+        }
+        .book-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Modal for Filters (Hidden by default) */
+        .filter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: scroll;
+            display: none; 
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 { margin: 0; }
+        .close-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; }
+        .filter-group { margin-bottom: 20px; padding: 10px; border: 1px solid #eee; border-radius: var(--border-radius);}
+        .filter-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .filter-group select, .filter-group input { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        .apply-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); font-weight: bold; }
+        
+        /* Bottom Nav - Reused from Dashboard */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <input type="text" placeholder="Service or Location (e.g., Oil Change, 90210)" class="search-input">
+        <button class="filter-btn" onclick="openFilterModal()">
+            <i class="fas fa-sliders-h"></i> Filters
+        </button>
+    </div>
+
+    <div class="map-section" id="map-view">
+        [Map Showing Mechanic Locations]
+    </div>
+
+    <div class="toggle-view">
+        <button class="toggle-btn active" id="list-toggle" onclick="toggleView('list')"><i class="fas fa-list"></i> List View</button>
+        <button class="toggle-btn" id="map-toggle" onclick="toggleView('map')"><i class="fas fa-map-marked-alt"></i> Map View</button>
+    </div>
+
+    <div class="results-list" id="list-view">
+        <p style="margin-top: 5px; font-weight: bold;">7 Mechanics Found</p>
+        
+        <div class="mechanic-card">
+            <i class="fas fa-car-side" style="font-size: 3em; color: #ccc;"></i>
+            <div class="mechanic-info">
+                <h3>Pete's Garage <span class="rating">4.9 <i class="fas fa-star"></i></span></h3>
+                <p style="margin: 0; font-size: 0.9em;">**Specialties:** Oil, Tires, Brakes | 2.1 mi</p>
+            </div>
+            <a href="mechanic_profile.html?id=1" class="book-btn">Book Now</a>
+        </div>
+
+        <div class="mechanic-card">
+            <i class="fas fa-car-side" style="font-size: 3em; color: #ccc;"></i>
+            <div class="mechanic-info">
+                <h3>Fix-It Pro Auto Center <span class="rating">4.7 <i class="fas fa-star"></i></span></h3>
+                <p style="margin: 0; font-size: 0.9em;">**Specialties:** Engine, Transmission | 4.5 mi</p>
+            </div>
+            <a href="mechanic_profile.html?id=2" class="book-btn">Book Now</a>
+        </div>
+        
+         <div class="mechanic-card">
+            <i class="fas fa-car-side" style="font-size: 3em; color: #ccc;"></i>
+            <div class="mechanic-info">
+                <h3>The Exhaust Shop <span class="rating">4.2 <i class="fas fa-star"></i></span></h3>
+                <p style="margin: 0; font-size: 0.9em;">**Specialties:** Exhaust, Muffler | 1.8 mi</p>
+            </div>
+            <a href="mechanic_profile.html?id=3" class="book-btn">Book Now</a>
+        </div>
+        
+    </div>
+
+    <div class="filter-modal" id="filter-modal">
+        <div class="modal-header">
+            <h2>Filter Results</h2>
+            <button class="close-btn" onclick="closeFilterModal()">&times;</button>
+        </div>
+        
+        <form onsubmit="applyFilters(event)">
+            <div class="filter-group">
+                <label for="specialty">Service Specialty</label>
+                <select id="specialty">
+                    <option value="">Any Specialty</option>
+                    <option>Brakes</option>
+                    <option>Engine Repair</option>
+                    <option>Oil & Fluid</option>
+                    <option>Tires & Alignment</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="rating">Minimum Rating</label>
+                <select id="rating">
+                    <option value="4">4.0+ Stars</option>
+                    <option value="3">3.0+ Stars</option>
+                    <option value="0">Any Rating</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="distance">Max Distance (miles)</label>
+                <input type="range" id="distance" min="1" max="50" value="10" oninput="document.getElementById('distance-val').innerText=this.value+' mi'">
+                <p style="text-align: center; margin: 5px 0 0;">Max: <span id="distance-val">10 mi</span></p>
+            </div>
+            
+            <button type="submit" class="apply-btn">Apply Filters</button>
+        </form>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="motorist_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="my_bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Bookings</span></a>
+        <a href="my_orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+    </div>
+
+    <script>
+        // JS for handling modal and view toggle
+        function openFilterModal() {
+            document.getElementById('filter-modal').style.display = 'block';
+        }
+
+        function closeFilterModal() {
+            document.getElementById('filter-modal').style.display = 'none';
+        }
+
+        function applyFilters(event) {
+            event.preventDefault();
+            closeFilterModal();
+            // In a real app, refresh results based on form values
+            alert('Filters applied and search results updated.');
+        }
+
+        function toggleView(view) {
+            const listToggle = document.getElementById('list-toggle');
+            const mapToggle = document.getElementById('map-toggle');
+            const listView = document.getElementById('list-view');
+            const mapView = document.getElementById('map-view');
+
+            if (view === 'list') {
+                listToggle.classList.add('active');
+                mapToggle.classList.remove('active');
+                listView.style.display = 'block';
+                mapView.style.display = 'none';
+            } else {
+                mapToggle.classList.add('active');
+                listToggle.classList.remove('active');
+                listView.style.display = 'none';
+                mapView.style.display = 'block';
+                alert('Showing Map View. (In a real app, this loads the map API)');
+            }
+        }
+        
+        // Ensure list view is default on load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('map-view').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
