@@ -1,50 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - AutoConnect</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Checkout</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 70px; /* Space for sticky payment button */
+        }
+        
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Card Layout */
+        .card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .card h2 { margin-top: 0; font-size: 1.3em; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+
+        /* Item in Cart */
+        .cart-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+        }
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .item-details { flex-grow: 1; }
+        .item-details p { margin: 0 0 5px 0; font-size: 0.9em; }
+        .item-details strong { color: var(--primary-color); }
+
+        /* Address and Payment Forms */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9em; font-weight: bold; }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .address-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* Summary */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.95em;
+        }
+        .summary-total {
+            font-size: 1.2em;
+            font-weight: bold;
+            border-top: 2px solid #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        /* Sticky Payment Button */
+        .sticky-payment {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .payment-btn {
+            padding: 12px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-grow: 1;
+        }
+        .total-label {
+            font-size: 0.9em;
+            margin-right: 15px;
+        }
+        .final-total {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>AutoConnect</h1>
-    <nav>
-      <div id="menuToggle">☰</div>
-      <ul id="navMenu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">Search</a></li>
-        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
-        <li><a href="messages.html">Messages</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="container">
-    <section class="card" id="checkout-card">
-      <h2>Checkout</h2>
-      <div id="checkout-items"></div>
+    <header class="header">
+        <h1>Checkout</h1>
+    </header>
 
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Your Name">
-      </div>
-      <div class="form-group">
-        <label for="address">Shipping Address</label>
-        <input type="text" id="address" placeholder="Address">
-      </div>
-      <div class="form-group">
-        <label for="card">Payment Method</label>
-        <select id="card">
-          <option value="visa">Visa</option>
-          <option value="mastercard">MasterCard</option>
-          <option value="paypal">PayPal</option>
-        </select>
-      </div>
-      <button class="btn" id="place-order-btn">Place Order</button>
-    </section>
-  </main>
+    <div class="container">
+        
+        <div class="card">
+            <h2><i class="fas fa-shopping-cart"></i> Order Summary (2 Items)</h2>
+            
+            <div class="cart-item">
+                <img src="" alt="Part 1 Placeholder">
+                <div class="item-details">
+                    <p style="font-weight: bold;">Front Ceramic Brake Pads</p>
+                    <p>Qty: 1 | Seller: Ace Auto Parts</p>
+                    <p>Price: <strong>$34.99</strong> | <a href="#" onclick="alert('Item removed')">Remove</a></p>
+                </div>
+            </div>
+            
+             <div class="cart-item">
+                <img src="" alt="Part 2 Placeholder">
+                <div class="item-details">
+                    <p style="font-weight: bold;">High Performance Oil Filter</p>
+                    <p>Qty: 2 | Seller: Fix-It Pro Center</p>
+                    <p>Price: <strong>$39.00</strong> (2 x $19.50) | <a href="#" onclick="alert('Item removed')">Remove</a></p>
+                </div>
+            </div>
+            
+            <div class="summary-row"><span>Subtotal:</span><span>$73.99</span></div>
+            <div class="summary-row"><span>Shipping:</span><span>$5.99</span></div>
+            <div class="summary-row"><span>Tax (5%):</span><span>$3.70</span></div>
+            <div class="summary-total summary-row"><span>Order Total:</span><span>$83.68</span></div>
+        </div>
 
-  <script src="app.js"></script>
+        <div class="card">
+            <h2><i class="fas fa-shipping-fast"></i> Shipping Address</h2>
+            <form id="shipping-form">
+                <div class="input-group"><input type="text" placeholder="Full Name" required></div>
+                <div class="input-group"><input type="text" placeholder="Address Line 1" required></div>
+                <div class="input-group"><input type="text" placeholder="Address Line 2 (Optional)"></div>
+                <div class="address-grid">
+                    <div class="input-group"><input type="text" placeholder="City" required></div>
+                    <div class="input-group"><input type="text" placeholder="Zip Code" required></div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-credit-card"></i> Payment Method</h2>
+            <form id="payment-form">
+                <div class="input-group">
+                    <label>Card Number</label>
+                    <input type="text" placeholder="XXXX XXXX XXXX XXXX" required>
+                </div>
+                <div class="address-grid">
+                    <div class="input-group">
+                        <label>Expiration</label>
+                        <input type="text" placeholder="MM/YY" required>
+                    </div>
+                    <div class="input-group">
+                        <label>CVV</label>
+                        <input type="text" placeholder="123" required>
+                    </div>
+                </div>
+            </form>
+            <p style="margin-top: 15px; font-size: 0.9em;"><i class="fas fa-lock"></i> Secured by Stripe.</p>
+        </div>
+
+    </div>
+
+    <div class="sticky-payment">
+        <div class="total-label">
+            Total: <span class="final-total">$83.68</span>
+        </div>
+        <button class="payment-btn" onclick="handlePayment()">Place Order</button>
+    </div>
+
+    <script>
+        function handlePayment() {
+            // Basic validation check
+            if (document.getElementById('shipping-form').checkValidity()) {
+                alert("Processing Payment for $83.68...\n(Redirecting to Order Confirmation)");
+                // In a real app, send data to the backend for final processing (including payment gateway tokenization)
+            } else {
+                alert("Please fill in all required shipping and payment fields.");
+            }
+        }
+    </script>
+
 </body>
 </html>
