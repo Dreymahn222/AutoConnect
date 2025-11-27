@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoConnect - Login/Sign Up</title>
+    <title>AutoConnect - Log In</title>
     <style>
         /* ------------------------------------- */
-        /* 1. CSS Reset & Variables (Inherited) */
+        /* CSS Reset & Variables */
         /* ------------------------------------- */
         :root {
             --primary-color: #007BFF;
-            --secondary-color: #4CAF50;
             --text-color: #333;
             --bg-light: #f4f7f6;
             --border-radius: 8px;
-            --error-color: #dc3545;
         }
 
         body {
@@ -26,59 +24,40 @@
             line-height: 1.6;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Start from the top on mobile */
+            align-items: flex-start; 
             min-height: 100vh;
         }
 
         /* ------------------------------------- */
-        /* 2. Main Container & Tabs */
+        /* Main Container & Layout */
         /* ------------------------------------- */
         .auth-container {
-            width: 100%; /* Full width on mobile */
-            max-width: 450px; /* Max width for readability */
+            width: 100%; 
+            max-width: 400px; 
             margin: 30px 15px;
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Contains the tab content */
+            padding: 25px;
         }
 
         .logo {
             text-align: center;
-            padding: 20px 0 10px;
+            padding-bottom: 20px;
             font-size: 1.8em;
             font-weight: bold;
             color: var(--primary-color);
         }
 
-        .tab-selector {
-            display: flex;
-            border-bottom: 2px solid #eee;
-        }
-
-        .tab-selector button {
-            flex-grow: 1;
-            padding: 15px 10px;
-            border: none;
-            background-color: transparent;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
             color: var(--text-color);
-            transition: border-bottom 0.3s ease;
-        }
-
-        .tab-selector button.active {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .form-content {
-            padding: 25px;
         }
 
         /* ------------------------------------- */
-        /* 3. Forms & Inputs */
+        /* Forms & Inputs */
         /* ------------------------------------- */
         .auth-form {
             display: flex;
@@ -93,7 +72,7 @@
             font-weight: bold;
         }
 
-        .input-group input, .select-group select {
+        .input-group input {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -114,167 +93,53 @@
             margin-top: 10px;
         }
 
-        .forgot-password {
-            text-align: right;
+        .forgot-password, .switch-link {
+            text-align: center;
             font-size: 0.9em;
+            margin-top: 15px;
         }
 
-        .forgot-password a {
+        .forgot-password a, .switch-link a {
             color: var(--primary-color);
             text-decoration: none;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Sign-up specific segmentation */
-        .user-type-selector {
-            display: flex;
-            gap: 10px;
-        }
-
-        .user-type-selector button {
-            flex-grow: 1;
-            padding: 10px;
-            border: 2px solid #ccc;
-            background-color: white;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .user-type-selector button.active-type {
-            border-color: var(--secondary-color);
-            background-color: #e6ffe6; /* Light green background */
             font-weight: bold;
         }
-
     </style>
 </head>
 <body>
 
     <div class="auth-container">
         <div class="logo">AutoConnect</div>
+        <h2>Log In</h2>
 
-        <div class="tab-selector">
-            <button id="login-tab" class="active" onclick="switchTab('login')">Log In</button>
-            <button id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
-        </div>
-
-        <div id="login-form" class="form-content">
-            <form class="auth-form" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label for="login-email">Email Address</label>
-                    <input type="email" id="login-email" required placeholder="your.email@example.com">
-                </div>
-                <div class="input-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required placeholder="••••••••">
-                </div>
-                
-                <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </div>
-                
-                <button type="submit" class="btn-primary">Log In to Your Account</button>
-            </form>
-        </div>
-
-        <div id="signup-form" class="form-content hidden">
-            <h3 style="margin-top: 0;">What type of user are you?</h3>
-            <div class="user-type-selector">
-                <button id="type-motorist" class="active-type" onclick="setUserType('motorist')">Motorist</button>
-                <button id="type-mechanic" onclick="setUserType('mechanic')">Mechanic/Seller</button>
+        <form class="auth-form" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required placeholder="your.email@example.com">
+            </div>
+            <div class="input-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="••••••••">
             </div>
             
-            <form class="auth-form" style="margin-top: 20px;" onsubmit="handleSignup(event)">
-                <div class="input-group">
-                    <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" required placeholder="John Doe">
-                </div>
-                <div class="input-group">
-                    <label for="signup-email">Email Address</label>
-                    <input type="email" id="signup-email" required placeholder="your.email@example.com">
-                </div>
-                <div class="input-group">
-                    <label for="signup-password">Create Password</label>
-                    <input type="password" id="signup-password" required placeholder="Min 8 characters">
-                </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn-primary">Log In</button>
+        </form>
 
-                <div class="input-group hidden" id="mechanic-fields">
-                    <label for="business-name">Business Name (Mechanics Only)</label>
-                    <input type="text" id="business-name" placeholder="ABC Auto Repair">
-                </div>
-
-                <button type="submit" class="btn-primary" id="signup-btn-text">Sign Up as Motorist</button>
-            </form>
+        <div class="switch-link">
+            Don't have an account? <a href="signup.html">Sign Up here</a>
         </div>
     </div>
 
     <script>
-        let currentUserType = 'motorist';
-
-        // Toggles between the Login and Sign Up forms
-        function switchTab(tabId) {
-            document.getElementById('login-tab').classList.remove('active');
-            document.getElementById('signup-tab').classList.remove('active');
-            
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('signup-form').classList.add('hidden');
-
-            document.getElementById(tabId + '-tab').classList.add('active');
-            document.getElementById(tabId + '-form').classList.remove('hidden');
-        }
-
-        // Sets the user type during sign up (Motorist vs. Mechanic)
-        function setUserType(type) {
-            currentUserType = type;
-            const motoristBtn = document.getElementById('type-motorist');
-            const mechanicBtn = document.getElementById('type-mechanic');
-            const mechanicFields = document.getElementById('mechanic-fields');
-            const signupBtnText = document.getElementById('signup-btn-text');
-
-            motoristBtn.classList.remove('active-type');
-            mechanicBtn.classList.remove('active-type');
-            mechanicFields.classList.add('hidden');
-
-            if (type === 'motorist') {
-                motoristBtn.classList.add('active-type');
-                signupBtnText.textContent = "Sign Up as Motorist";
-            } else {
-                mechanicBtn.classList.add('active-type');
-                mechanicFields.classList.remove('hidden');
-                signupBtnText.textContent = "Sign Up as Mechanic";
-            }
-        }
-
-        // Simulates the login process
         function handleLogin(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            alert(`Attempting Login...\nEmail: ${email}\nPassword: ${password}\n(Redirect to Dashboard)`);
-            // Here you would send data to your backend API
-        }
-
-        // Simulates the signup process
-        function handleSignup(event) {
-            event.preventDefault();
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const businessName = document.getElementById('business-name').value;
-
-            let message = `Attempting Sign Up as ${currentUserType}...\nName: ${name}\nEmail: ${email}\n`;
-            if (currentUserType === 'mechanic') {
-                message += `Business: ${businessName}\n`;
-            }
-            message += "(Send data to API & redirect to profile setup)";
-            
-            alert(message);
-            // Here you would send data, including the userType, to your backend API
+            // In a real app, send data to backend.
+            alert(`Attempting Login for: ${email}\n(Redirect to Dashboard)`);
         }
     </script>
 
