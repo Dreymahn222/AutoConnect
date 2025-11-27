@@ -1,56 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Sign Up</title>
-  <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Sign Up</title>
+    <style>
+        /* ------------------------------------- */
+        /* 1. CSS Reset & Variables (Inherited from Login) */
+        /* ------------------------------------- */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* ------------------------------------- */
+        /* 2. Main Container & Layout */
+        /* ------------------------------------- */
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 30px 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        .logo {
+            text-align: center;
+            padding-bottom: 10px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--text-color);
+        }
+
+        /* ------------------------------------- */
+        /* 3. Forms & Inputs */
+        /* ------------------------------------- */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .switch-link {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 25px;
+        }
+
+        .switch-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* User Type Selector */
+        .user-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .user-type-selector button {
+            flex-grow: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background-color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .user-type-selector button.active-type {
+            border-color: var(--secondary-color);
+            background-color: #e6ffe6;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<header class="header">
-  <a class="brand" href="index.html">MechMarket</a>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <nav class="nav" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="search.html">Search</a>
-    <a href="mechanic.html">Mechanics</a>
-    <a href="item.html">Parts</a>
-    <a href="messages.html">Messages</a>
-    <a href="login.html">Login</a>
-    <a href="cart.html">Cart <span id="cart-badge"></span></a>
-  </nav>
-</header>
+    <div class="auth-container">
+        <div class="logo">AutoConnect</div>
+        <h2>Create Account</h2>
 
-<main class="container">
-  <section class="card">
-    <h2>Create Account</h2>
-    <div class="form-group">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Your Name"/>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="you@example.com"/>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Password"/>
-    </div>
-    <div class="form-group">
-      <label for="role">Sign Up As</label>
-      <select id="role">
-        <option value="motorist">Motorist</option>
-        <option value="mechanic">Mechanic</option>
-      </select>
-    </div>
-    <button class="btn">Sign Up</button>
-    <p>Already have an account? <a href="login.html">Login</a></p>
-  </section>
+        <h3 style="margin-top: 0; font-size: 1.1em;">I want to sign up as a:</h3>
+        <div class="user-type-selector">
+            <button id="type-motorist" class="active-type" onclick="setUserType('motorist')">Motorist</button>
+            <button id="type-mechanic" onclick="setUserType('mechanic')">Mechanic/Seller</button>
+        </div>
+        
+        <form class="auth-form" onsubmit="handleSignup(event)">
+            <div class="input-group">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" required placeholder="John Doe">
+            </div>
+            <div class="input-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" required placeholder="your.email@example.com">
+            </div>
+            <div class="input-group">
+                <label for="signup-password">Create Password</label>
+                <input type="password" id="signup-password" required placeholder="Min 8 characters">
+            </div>
 
-  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-</main>
+            <div class="input-group hidden" id="mechanic-fields">
+                <label for="business-name">Business Name</label>
+                <input type="text" id="business-name" placeholder="ABC Auto Repair">
+            </div>
 
-<script src="app.js"></script>
+            <button type="submit" class="btn-primary" id="signup-btn-text">Sign Up as Motorist</button>
+        </form>
+        
+        <div class="switch-link">
+            Already have an account? <a href="login.html">Log In here</a>
+        </div>
+    </div>
+
+    <script>
+        let currentUserType = 'motorist';
+
+        function setUserType(type) {
+            currentUserType = type;
+            const motoristBtn = document.getElementById('type-motorist');
+            const mechanicBtn = document.getElementById('type-mechanic');
+            const mechanicFields = document.getElementById('mechanic-fields');
+            const signupBtnText = document.getElementById('signup-btn-text');
+
+            motoristBtn.classList.remove('active-type');
+            mechanicBtn.classList.remove('active-type');
+            mechanicFields.classList.add('hidden');
+
+            if (type === 'motorist') {
+                motoristBtn.classList.add('active-type');
+                signupBtnText.textContent = "Sign Up as Motorist";
+            } else {
+                mechanicBtn.classList.add('active-type');
+                mechanicFields.classList.remove('hidden');
+                signupBtnText.textContent = "Sign Up as Mechanic";
+            }
+        }
+        
+        // Ensure the initial state is set
+        document.addEventListener('DOMContentLoaded', () => {
+            setUserType('motorist');
+        });
+
+        function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const businessName = (currentUserType === 'mechanic') ? document.getElementById('business-name').value : '';
+
+            let message = `Attempting Sign Up as ${currentUserType}...\nName: ${name}\nEmail: ${email}\n`;
+            if (currentUserType === 'mechanic') {
+                message += `Business: ${businessName}\n`;
+            }
+            message += "(Redirect to next step: Profile Setup/Dashboard)";
+            
+            alert(message);
+        }
+    </script>
+
 </body>
 </html>
