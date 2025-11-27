@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Manager</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Date & View Selector */
+        .date-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .date-selector button {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .current-date {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .view-toggle button {
+            padding: 8px 15px;
+            border: 1px solid var(--primary-color);
+            background-color: white;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .view-toggle button:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        .view-toggle button:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        .view-toggle button.active { background-color: var(--primary-color); color: white; }
+
+        /* Booking List Item */
+        .booking-item {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid; /* Status color bar */
+        }
+        .booking-pending { border-left-color: orange; }
+        .booking-confirmed { border-left-color: var(--secondary-color); }
+
+        .booking-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .booking-details h4 { margin: 0; font-size: 1.1em; }
+        .status-tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-pending { background-color: #ffe0b2; color: #e65100; }
+        .status-confirmed { background-color: #c8e6c9; color: var(--secondary-color); }
+
+        .booking-info p { margin: 3px 0; font-size: 0.9em; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            border-top: 1px dashed #eee;
+            padding-top: 10px;
+        }
+        .actions button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-approve { background-color: var(--secondary-color); color: white; }
+        .btn-reject { background-color: var(--danger-color); color: white; }
+
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Bookings Manager</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="date-selector">
+            <button onclick="changeDate(-1)"><i class="fas fa-chevron-left"></i></button>
+            <span class="current-date" id="current-date">Dec 15, 2025</span>
+            <button onclick="changeDate(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <div class="view-toggle">
+            <button class="active" onclick="toggleView('list')"><i class="fas fa-list-ul"></i> List View</button>
+            <button onclick="toggleView('calendar')"><i class="fas fa-calendar"></i> Calendar View</button>
+        </div>
+
+        <div id="booking-list">
+            <h3 style="font-size: 1.2em;">9:00 AM</h3>
+            <div class="booking-item booking-pending">
+                <div class="booking-details">
+                    <h4>Engine Diagnostics</h4>
+                    <span class="status-tag status-pending">PENDING</span>
+                </div>
+                <div class="booking-info">
+                    <p>Customer: **John D.** (AC-109)</p>
+                    <p>Vehicle: Honda Civic (2018)</p>
+                    <p>Duration: 1.5 hrs | Est. Price: $99.00</p>
+                </div>
+                <div class="actions">
+                    <button class="btn-approve" onclick="alert('Confirmed booking AC-109')">Approve</button>
+                    <button class="btn-reject" onclick="alert('Rejected booking AC-109')">Reject</button>
+                </div>
+            </div>
+            
+            <h3 style="font-size: 1.2em;">11:00 AM</h3>
+            <div class="booking-item booking-confirmed">
+                <div class="booking-details">
+                    <h4>Tire Rotation & Balance</h4>
+                    <span class="status-tag status-confirmed">CONFIRMED</span>
+                </div>
+                <div class="booking-info">
+                    <p>Customer: **Sarah L.** (AC-108)</p>
+                    <p>Vehicle: Ford F-150 (2022)</p>
+                    <p>Duration: 1.0 hrs | Price: $60.00</p>
+                </div>
+                <div class="actions">
+                    <button style="background-color: #f0f0f0;" onclick="alert('Marked AC-108 as Completed')">Mark Complete</button>
+                    <button style="background-color: #eee;" onclick="alert('Opening Edit/Reschedule Modal')">Edit</button>
+                </div>
+            </div>
+            
+             <h3 style="font-size: 1.2em; text-align: center; margin-top: 30px; color: #666;">No bookings scheduled for the afternoon.</h3>
+        </div>
+        
+        <div id="calendar-view" style="display: none; text-align: center; padding: 40px; background-color: white; border-radius: 8px;">
+            <i class="fas fa-calendar-alt" style="font-size: 3em; color: #ccc;"></i>
+            <p>Interactive Calendar Placeholder</p>
+            <p style="font-size: 0.9em;">(Showing confirmed appointments and available slots)</p>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="mechanic_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-calendar-alt"></i><span>Bookings</span></a>
+        <a href="inventory_management.html" class="nav-item"><i class="fas fa-boxes"></i><span>Inventory</span></a>
+        <a href="orders_manager.html" class="nav-item"><i class="fas fa-truck"></i><span>Orders</span></a>
+        <a href="payments_report.html" class="nav-item"><i class="fas fa-dollar-sign"></i><span>Payments</span></a>
+    </div>
+
+    <script>
+        function changeDate(delta) {
+            // Placeholder date change logic
+            const currentDateEl = document.getElementById('current-date');
+            if (delta === 1) {
+                currentDateEl.textContent = 'Dec 16, 2025';
+            } else {
+                 currentDateEl.textContent = 'Dec 14, 2025';
+            }
+            // In a real app, this would fetch new bookings for the selected date
+            alert('Loading bookings for new date...');
+        }
+
+        function toggleView(view) {
+            const list = document.getElementById('booking-list');
+            const calendar = document.getElementById('calendar-view');
+            
+            document.querySelectorAll('.view-toggle button').forEach(btn => btn.classList.remove('active'));
+
+            if (view === 'list') {
+                list.style.display = 'block';
+                calendar.style.display = 'none';
+                document.querySelector('[onclick="toggleView(\'list\')"]').classList.add('active');
+            } else {
+                list.style.display = 'none';
+                calendar.style.display = 'block';
+                document.querySelector('[onclick="toggleView(\'calendar\')"]').classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
