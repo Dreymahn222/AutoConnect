@@ -6,93 +6,51 @@
   <title>MechMarket — Mechanic Profile</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
-<body data-page="mechanic">
+<body>
 
-  <!-- Header -->
-  <header class="header">
-    <a class="brand" href="index.html">MechMarket</a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="search.html">Search</a>
-      <a href="mechanic.html" class="active">Mechanics</a>
-      <a href="item.html">Parts</a>
-      <a href="messages.html">Messages</a>
-      <a href="login.html">Login</a>
-      <a href="cart.html">Cart <span id="cart-badge"></span></a>
-    </nav>
-  </header>
+<header class="header">
+  <a class="brand" href="index.html">MechMarket</a>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <nav class="nav" id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="search.html">Search</a>
+    <a href="mechanic.html" class="active">Mechanics</a>
+    <a href="item.html">Parts</a>
+    <a href="messages.html">Messages</a>
+    <a href="login.html">Login</a>
+    <a href="cart.html">Cart <span id="cart-badge"></span></a>
+  </nav>
+</header>
 
-  <!-- Main Content -->
-  <main class="container">
+<main class="container">
+  <section class="card center">
+    <h1>Joe Auto Repairs</h1>
+    <p>Specialties: Oil Change, Brake Replacement, Diagnostics</p>
+    <p>Address: 123 Main Street</p>
+    <p>Rating: ★★★★☆ (45 Reviews)</p>
+  </section>
 
-    <section class="card mechanic-profile">
-      <div class="profile-header grid">
-        <img src="https://via.placeholder.com/150?text=Mechanic+Photo" alt="Mechanic Photo" class="profile-photo"/>
-        <div>
-          <h1 id="mechanic-name">Joe Auto Repairs</h1>
-          <p id="mechanic-location">Lusaka</p>
-          <p id="mechanic-rating">★ 4.6 (35 reviews)</p>
-          <p id="mechanic-specialty">Specialties: Engine, Electrical, Diagnostics</p>
-          <button class="btn" onclick="bookService()">Book a Service</button>
-        </div>
-      </div>
-      
-      <!-- Services Offered -->
-      <div class="mechanic-services" style="margin-top:16px;">
-        <h3>Services Offered</h3>
-        <ul id="services-list">
-          <li>Oil Change — $50</li>
-          <li>Brake Replacement — $120</li>
-          <li>Engine Diagnostics — $80</li>
-        </ul>
-      </div>
+  <section class="card">
+    <h2>Services Offered</h2>
+    <ul>
+      <li>Oil Change — $50</li>
+      <li>Brake Replacement — $120</li>
+      <li>Engine Diagnostics — $80</li>
+    </ul>
+  </section>
 
-      <!-- Inventory -->
-      <div class="mechanic-inventory" style="margin-top:16px;">
-        <h3>Parts for Sale</h3>
-        <div id="inventory-list" class="grid">
-          <div class="card center">
-            <img src="https://via.placeholder.com/120x80?text=Alternator" alt="Alternator"/>
-            <div>Alternator</div>
-            <div>$150 • New • 5 in stock</div>
-            <button class="btn" onclick="addToCart('Alternator')">Add to Cart</button>
-          </div>
-          <div class="card center">
-            <img src="https://via.placeholder.com/120x80?text=Brake+Pads" alt="Brake Pads"/>
-            <div>Brake Pads</div>
-            <div>$70 • New • 12 in stock</div>
-            <button class="btn" onclick="addToCart('Brake Pads')">Add to Cart</button>
-          </div>
-        </div>
-      </div>
+  <section class="card">
+    <h2>Inventory</h2>
+    <div class="grid inventory-grid">
+      <div class="card center">Brake Pads — $70</div>
+      <div class="card center">Oil Filter — $20</div>
+      <div class="card center">Alternator — $150</div>
+    </div>
+  </section>
 
-      <!-- Reviews -->
-      <div class="mechanic-reviews" style="margin-top:16px;">
-        <h3>Customer Reviews</h3>
-        <div id="reviews-list">
-          <div class="card">
-            <strong>Mary K.</strong> ★ 5 <br/> Great service and fast turnaround!
-          </div>
-          <div class="card">
-            <strong>John D.</strong> ★ 4 <br/> Very professional, fair pricing.
-          </div>
-        </div>
-      </div>
+  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
+</main>
 
-    </section>
-
-    <footer class="footer card center" style="margin-top:20px;">© 2025 MechMarket • About • Contact • Terms</footer>
-
-  </main>
-
-  <script src="app.js"></script>
-  <script>
-    function bookService() {
-      alert('Booking popup will appear (JS modal placeholder)');
-    }
-    function addToCart(itemName) {
-      alert(itemName + ' added to cart (JS placeholder)');
-    }
-  </script>
+<script src="app.js"></script>
 </body>
 </html>
