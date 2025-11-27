@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - My Bookings</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px; /* Space for bottom nav */
+        }
+        
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Booking Tabs */
+        .booking-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .booking-tabs button {
+            flex-grow: 1;
+            padding: 12px 0;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .booking-tabs button.active {
+            color: var(--primary-color);
+            background-color: #f0f8ff;
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Booking Card */
+        .booking-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        .booking-card h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+        .status-pill {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .status-confirmed { background-color: #c8e6c9; color: var(--secondary-color); }
+        .status-pending { background-color: #ffe0b2; color: #e65100; }
+        .status-completed { background-color: #bbdefb; color: #1565c0; }
+        
+        .action-link {
+            display: block;
+            text-align: right;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* No Bookings Message */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+        }
+        .empty-state i {
+            font-size: 3em;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>My Service Bookings</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="booking-tabs">
+            <button class="active" onclick="showBookings('upcoming')">Upcoming (2)</button>
+            <button onclick="showBookings('past')">Past (5)</button>
+        </div>
+
+        <div id="upcoming-bookings">
+            <div class="booking-card">
+                <span class="status-pill status-confirmed">Confirmed</span>
+                <h3>Engine Diagnostics</h3>
+                <p style="margin: 5px 0;">**Mechanic:** Ace Auto Repair</p>
+                <p style="margin: 5px 0;">**Date/Time:** Dec 5th, 2025 at 10:00 AM</p>
+                <p style="margin: 5px 0;">**Estimated Price:** $99.00</p>
+                <a href="#" class="action-link" onclick="alert('Details for Booking 1')">View Details & Cancel</a>
+            </div>
+
+            <div class="booking-card">
+                <span class="status-pill status-pending">Pending Approval</span>
+                <h3>Standard Oil Change</h3>
+                <p style="margin: 5px 0;">**Mechanic:** Fix-It Pro Auto Center</p>
+                <p style="margin: 5px 0;">**Date/Time:** Dec 15th, 2025 at 1:30 PM</p>
+                <p style="margin: 5px 0;">**Estimated Price:** $49.99</p>
+                <a href="#" class="action-link" onclick="alert('Details for Booking 2')">Cancel Request</a>
+            </div>
+        </div>
+
+        <div id="past-bookings" style="display: none;">
+             <div class="booking-card">
+                <span class="status-pill status-completed">Completed</span>
+                <h3>Tire Rotation</h3>
+                <p style="margin: 5px 0;">**Mechanic:** Pete's Garage</p>
+                <p style="margin: 5px 0;">**Date/Time:** Oct 10th, 2025</p>
+                <p style="margin: 5px 0;">**Final Price:** $60.00</p>
+                <a href="#" class="action-link" onclick="alert('Ready to Review!')" style="color: var(--secondary-color);">Leave Review</a>
+            </div>
+            
+            <div class="empty-state" style="display: none;">
+                <i class="fas fa-history"></i>
+                <p>No past bookings found yet.</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="bottom-nav">
+        <a href="motorist_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="mechanic_search.html" class="nav-item"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-calendar-check"></i><span>Bookings</span></a>
+        <a href="my_orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+    </div>
+
+    <script>
+        // JS for switching between Upcoming and Past bookings
+        function showBookings(tab) {
+            const upcoming = document.getElementById('upcoming-bookings');
+            const past = document.getElementById('past-bookings');
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.booking-tabs button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            if (tab === 'upcoming') {
+                upcoming.style.display = 'block';
+                past.style.display = 'none';
+                document.querySelector('[onclick="showBookings(\'upcoming\')"]').classList.add('active');
+            } else {
+                upcoming.style.display = 'none';
+                past.style.display = 'block';
+                document.querySelector('[onclick="showBookings(\'past\')"]').classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
