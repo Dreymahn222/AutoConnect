@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Container */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 1.5em; color: var(--primary-color); }
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .add-btn {
+            flex-grow: 1;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .search-input {
+            flex-grow: 2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+        }
+
+        /* Product List */
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .product-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .product-info {
+            flex-grow: 1;
+            font-size: 0.9em;
+        }
+        .product-info h4 {
+            margin: 0 0 3px;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+        .product-info p { margin: 0; }
+        .product-info strong { color: var(--primary-color); }
+        
+        .product-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #eee;
+        }
+
+        /* Actions */
+        .item-actions button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .item-actions .delete-btn {
+            color: var(--danger-color);
+        }
+        
+        /* Modal (New/Edit Product) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: scroll;
+            display: none; 
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .close-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; }
+        .modal-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        /* Form Styling (reused) */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-size: 0.9em; font-weight: bold; }
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Inventory Management System</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="quick-actions">
+            <input type="text" placeholder="Search product name or SKU..." class="search-input">
+            <button class="add-btn" onclick="openProductModal()"><i class="fas fa-plus"></i> Add Part</button>
+        </div>
+
+        <p style="font-weight: bold;">Total Active Listings: 34</p>
+
+        <div class="product-list">
+            <div class="product-item">
+                <img src="" alt="Brake Pads">
+                <div class="product-info">
+                    <h4>Ceramic Brake Pads (Front)</h4>
+                    <p>SKU: BPC-2101 | Price: <strong>$34.99</strong></p>
+                    <p>Stock: <span style="color: var(--secondary-color); font-weight: bold;">12 In Stock</span></p>
+                </div>
+                <div class="item-actions">
+                    <button onclick="openProductModal(1)"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" onclick="confirmDelete(1)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <img src="" alt="Oil Filter">
+                <div class="product-info">
+                    <h4>High Performance Oil Filter</h4>
+                    <p>SKU: OPF-332 | Price: <strong>$19.50</strong></p>
+                    <p>Stock: <span style="color: var(--secondary-color); font-weight: bold;">25 In Stock</span></p>
+                </div>
+                <div class="item-actions">
+                    <button onclick="openProductModal(2)"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" onclick="confirmDelete(2)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+            
+            <div class="product-item">
+                <img src="" alt="Spark Plugs">
+                <div class="product-info">
+                    <h4>Platinum Spark Plug Set</h4>
+                    <p>SKU: PSP-876 | Price: <strong>$55.00</strong></p>
+                    <p>Stock: <span style="color: var(--danger-color); font-weight: bold;">3 Low Stock</span></p>
+                </div>
+                <div class="item-actions">
+                    <button onclick="openProductModal(3)"><i class="fas fa-edit"></i></button>
+                    <button class="delete-btn" onclick="confirmDelete(3)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="modal" id="product-modal">
+        <div class="modal-header">
+            <h2 id="modal-title">Add New Product</h2>
+            <button class="close-btn" onclick="closeProductModal()">&times;</button>
+        </div>
+        
+        <form class="modal-form" onsubmit="saveProduct(event)">
+            <div class="input-group">
+                <label for="part-name">Part Name</label>
+                <input type="text" id="part-name" required placeholder="e.g., Rear Brake Drum">
+            </div>
+            <div class="input-group">
+                <label for="sku">SKU / Part Number</label>
+                <input type="text" id="sku" required placeholder="Manufacturer or Internal SKU">
+            </div>
+            <div class="input-group">
+                <label for="price">Price ($)</label>
+                <input type="number" id="price" step="0.01" required placeholder="e.g., 89.99">
+            </div>
+            <div class="input-group">
+                <label for="stock">Stock Quantity</label>
+                <input type="number" id="stock" required placeholder="e.g., 20">
+            </div>
+            <div class="input-group">
+                <label for="condition">Condition</label>
+                <select id="condition">
+                    <option value="new">New</option>
+                    <option value="used">Used</option>
+                    <option value="reman">Remanufactured</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="description">Description & Fitment</label>
+                <textarea id="description" placeholder="Vehicle compatibility, material, etc."></textarea>
+            </div>
+            <button type="submit" id="save-btn">Save Product</button>
+        </form>
+    </div>
+
+
+    <div class="bottom-nav">
+        <a href="mechanic_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="bookings_manager.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Bookings</span></a>
+        <a href="#" class="nav-item active"><i class="fas fa-boxes"></i><span>Inventory</span></a>
+        <a href="orders_manager.html" class="nav-item"><i class="fas fa-truck"></i><span>Orders</span></a>
+        <a href="payments_report.html" class="nav-item"><i class="fas fa-dollar-sign"></i><span>Payments</span></a>
+    </div>
+
+    <script>
+        function openProductModal(productId = null) {
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('modal-title');
+            const saveBtn = document.getElementById('save-btn');
+
+            if (productId) {
+                title.textContent = 'Edit Product #' + productId;
+                saveBtn.textContent = 'Update Product';
+                // In real app, load data for productId here
+            } else {
+                title.textContent = 'Add New Product';
+                saveBtn.textContent = 'Save Product';
+            }
+            modal.style.display = 'block';
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').style.display = 'none';
+        }
+
+        function saveProduct(event) {
+            event.preventDefault();
+            // Collect form data and send to API
+            alert('Product saved successfully!');
+            closeProductModal();
+        }
+
+        function confirmDelete(productId) {
+            if (confirm('Are you sure you want to delete product #' + productId + '?')) {
+                alert('Product #' + productId + ' deleted.');
+                // In real app, send delete request
+            }
+        }
+    </script>
+
+</body>
+</html>
