@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - How It Works</title>
+    <style>
+        /* ------------------------------------- */
+        /* CSS Reset & Variables */
+        /* ------------------------------------- */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ------------------------------------- */
+        /* Header (Simplified Mobile) */
+        /* ------------------------------------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .back-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* ------------------------------------- */
+        /* Main Content Layout */
+        /* ------------------------------------- */
+        .container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        .step-card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: 3px solid var(--bg-light);
+        }
+
+        .step-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            padding-left: 20px; /* Space for the number */
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Home</a>
+        <div class="logo">AutoConnect</div>
+        <a href="login.html" class="back-link">Login</a>
+    </header>
+
+    <div class="container">
+        <h1>How AutoConnect Works</h1>
+
+        <div class="section-title">🚗 For Motorists (Service & Parts)</div>
+        
+        <div class="step-card">
+            <span class="step-number">1</span>
+            <h3>Search Easily</h3>
+            <p>Use our main search bar to find mechanics by location and specialty, or search our huge inventory by **Make, Model, and Year** for the exact parts you need.</p>
+        </div>
+        
+        <div class="step-card">
+            <span class="step-number">2</span>
+            <h3>Book or Buy</h3>
+            <p>For services, view real-time availability and request a booking. For parts, securely **Add to Cart** and complete your purchase using Stripe/PayPal.</p>
+        </div>
+        
+        <div class="step-card">
+            <span class="step-number">3</span>
+            <h3>Review & Drive</h3>
+            <p>After your service is complete or your part arrives, leave a **verified review** to help other motorists in your community!</p>
+        </div>
+        
+        <a href="signup.html" class="cta-button" style="background-color: var(--primary-color);">Find a Mechanic or Part Now</a>
+
+        <div class="section-title">⚙️ For Mechanics (Grow Your Business)</div>
+        
+        <div class="step-card">
+            <span class="step-number">1</span>
+            <h3>Set Up Profile</h3>
+            <p>Create a detailed profile, list your specialties, services, pricing, and set your available working hours.</p>
+        </div>
+        
+        <div class="step-card">
+            <span class="step-number">2</span>
+            <h3>Manage Inventory</h3>
+            <p>Upload your parts inventory (new or used) easily using our **IMS (Inventory Management System)** and manage stock levels in real-time.</p>
+        </div>
+        
+        <div class="step-card">
+            <span class="step-number">3</span>
+            <h3>Accept & Earn</h3>
+            <p>Receive booking requests and part orders directly to your dashboard. We handle secure payments and notifications.</p>
+        </div>
+        
+        <a href="signup.html?role=mechanic" class="cta-button">List Your Services & Parts</a>
+
+    </div>
+
+</body>
+</html>
