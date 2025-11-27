@@ -42,7 +42,6 @@ a:hover {
   color: #fff;
 }
 
-/* Mobile Menu Button */
 .menu-toggle {
   background: none;
   border: none;
@@ -52,7 +51,6 @@ a:hover {
   display: block;
 }
 
-/* Navigation (mobile default: hidden) */
 .nav {
   display: none;
   flex-direction: column;
@@ -69,21 +67,17 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Show nav when active */
 .nav.active {
   display: flex;
 }
 
-/* Larger screens: horizontal nav, show always */
 @media(min-width: 768px){
-  .menu-toggle {
-    display: none;
-  }
-  .nav {
-    display: flex !important;
-    flex-direction: row;
-    gap: 15px;
-    margin-top: 0;
+  .menu-toggle { display: none; }
+  .nav { 
+    display: flex !important; 
+    flex-direction: row; 
+    gap: 15px; 
+    margin-top: 0; 
   }
 }
 
@@ -100,7 +94,7 @@ a:hover {
 }
 
 /* =========================
-   CONTAINER
+   CONTAINER & CARD
    ========================= */
 .container {
   width: 100%;
@@ -109,9 +103,6 @@ a:hover {
   padding: 0 10px;
 }
 
-/* =========================
-   CARDS
-   ========================= */
 .card {
   background: #fff;
   border-radius: 8px;
@@ -164,23 +155,90 @@ textarea {
 }
 
 /* =========================
-   GRID LAYOUTS
+   GRID SYSTEM
    ========================= */
 .grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+@media(min-width: 600px){
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(min-width: 900px){
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* =========================
-   PROFILE / THUMBNAILS
+   DASHBOARD SECTIONS
+   ========================= */
+.dashboard-section .card {
+  text-align: center;
+}
+
+.bookings-grid, .saved-parts-grid, .inventory-grid, .search-results, .parts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media(min-width: 600px){
+  .bookings-grid, .saved-parts-grid, .inventory-grid, .search-results, .parts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(min-width: 900px){
+  .bookings-grid, .saved-parts-grid, .inventory-grid, .search-results, .parts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================
+   CART PAGE
+   ========================= */
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+}
+
+/* =========================
+   MESSAGES PAGE
+   ========================= */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message.sender {
+  text-align: right;
+  background: #e1f5fe;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.message.receiver {
+  text-align: left;
+  background: #f1f1f1;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* =========================
+   IMAGES & THUMBNAILS
    ========================= */
 .profile-photo {
   width: 120px;
@@ -203,109 +261,4 @@ textarea {
   cursor: pointer;
   border-radius: 4px;
   object-fit: cover;
-}
-
-/* =========================
-   CART
-   ========================= */
-.cart-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border-bottom: 1px solid #ccc;
-  padding: 8px 0;
-}
-
-.cart-item img {
-  width: 100px;
-  height: 60px;
-  object-fit: cover;
-}
-
-.cart-item div {
-  margin-bottom: 4px;
-}
-
-/* =========================
-   MESSAGES
-   ========================= */
-.messages-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.conversations ul, .messages-list {
-  list-style: none;
-  padding: 0;
-}
-
-.conversations ul li {
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #ccc;
-}
-
-.conversations ul li:hover {
-  background-color: #f0f0f0;
-}
-
-.message.sender {
-  text-align: right;
-  margin-bottom: 6px;
-}
-
-.message.receiver {
-  text-align: left;
-  margin-bottom: 6px;
-}
-
-/* =========================
-   DASHBOARD GRIDS
-   ========================= */
-.orders-grid, .inventory-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* Mobile: 1 column */
-  gap: 10px;
-}
-
-@media(min-width: 600px){
-  .orders-grid, .inventory-grid {
-    grid-template-columns: repeat(2, 1fr); /* Tablet: 2 columns */
-  }
-}
-
-@media(min-width: 900px){
-  .orders-grid, .inventory-grid {
-    grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns */
-  }
-}
-
-/* Services list */
-#services-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-/* =========================
-   SEARCH / LISTING CARDS
-   ========================= */
-.search-results, .parts-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* Mobile default */
-  gap: 10px;
-}
-
-@media(min-width: 600px){
-  .search-results, .parts-grid {
-    grid-template-columns: repeat(2, 1fr); /* Tablet */
-  }
-}
-
-@media(min-width: 900px){
-  .search-results, .parts-grid {
-    grid-template-columns: repeat(3, 1fr); /* Desktop */
-  }
 }
