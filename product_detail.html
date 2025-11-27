@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Product Detail</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 70px; /* Space for sticky cart button */
+        }
+        
+        /* Header and Back Button */
+        .header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .back-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 0 0 20px 0; /* Remove horizontal padding from top */
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Image Carousel (Top of page) */
+        .image-carousel {
+            height: 250px;
+            background-color: #ccc; /* Placeholder */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Product Info */
+        .product-info-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-info-card h1 {
+            margin: 0 0 10px;
+            font-size: 1.6em;
+        }
+        .price-display {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .seller-info {
+            border-top: 1px dashed #eee;
+            padding-top: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .seller-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Quantity Selector */
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .qty-selector input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .qty-selector button {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Sticky Add to Cart Button */
+        .sticky-cart {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        .add-cart-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <a href="inventory_search.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Results</a>
+    </header>
+
+    <div class="container">
+        
+        <div class="image-carousel">
+            [Swipeable Product Images Placeholder]
+        </div>
+
+        <div class="product-info-card">
+            <h1>Front Ceramic Brake Pads (Set of 4)</h1>
+            <div class="price-display">$34.99</div>
+
+            <div class="qty-selector">
+                <label>Quantity:</label>
+                <button onclick="changeQty(-1)"><i class="fas fa-minus"></i></button>
+                <input type="number" id="quantity" value="1" min="1" max="10">
+                <button onclick="changeQty(1)"><i class="fas fa-plus"></i></button>
+            </div>
+
+            <p style="font-weight: bold; color: var(--secondary-color); margin: 5px 0;">12 In Stock</p>
+
+            <div class="seller-info">
+                Sold by: <a href="#">Ace Auto Parts (4.8 <i class="fas fa-star" style="color: gold;"></i>)</a><br>
+                Condition: **New**
+            </div>
+        </div>
+
+        <div class="product-info-card">
+            <h2 style="font-size: 1.3em; margin-top: 0;">Product Details</h2>
+            <p><strong>Part Number:</strong> BPC-2101</p>
+            <p><strong>Fits Vehicles:</strong> Honda Civic (2016 - 2021), Honda Accord (2018 - 2021)</p>
+            <p>These premium ceramic brake pads offer superior stopping power, low dust formula, and extended rotor life. Includes mounting hardware.</p>
+        </div>
+
+        <div class="product-info-card">
+            <h2 style="font-size: 1.3em; margin-top: 0;">Delivery & Pickup</h2>
+            <p><i class="fas fa-truck"></i> Standard Shipping: **$5.99** (3-5 days)</p>
+            <p><i class="fas fa-map-marker-alt"></i> Local Pickup: **FREE** (Available today at Seller's location)</p>
+        </div>
+
+    </div>
+
+    <div class="sticky-cart">
+        <button class="add-cart-btn" onclick="addToCart(document.getElementById('quantity').value)">Add to Cart</button>
+    </div>
+
+    <script>
+        // JS for quantity selector
+        function changeQty(delta) {
+            const qtyInput = document.getElementById('quantity');
+            let currentQty = parseInt(qtyInput.value);
+            let newQty = currentQty + delta;
+            
+            if (newQty >= 1 && newQty <= 10) { // Assuming max purchase of 10 for simplicity
+                qtyInput.value = newQty;
+            } else if (newQty < 1) {
+                qtyInput.value = 1;
+            }
+        }
+        
+        function addToCart(qty) {
+            alert(`Added ${qty} items to your cart.`);
+        }
+    </script>
+
+</body>
+</html>
