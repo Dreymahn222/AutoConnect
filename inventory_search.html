@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Search Parts</title>
+    <style>
+        /* CSS Variables & Base Styles (Shared) */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 60px; /* Space for bottom nav */
+        }
+
+        /* Top Search & Filter Bar */
+        .top-bar {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .search-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+        }
+        .filter-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        /* Results List */
+        .results-list {
+            padding: 15px 5px; /* Reduced padding for grid columns */
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .results-header {
+            padding: 0 10px 10px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns for mobile */
+            gap: 10px;
+        }
+
+        .product-card {
+            background-color: white;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .product-card img {
+            width: 90%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            background-color: #eee; /* Placeholder */
+        }
+        
+        .product-card h4 {
+            font-size: 1em;
+            margin: 5px 0 2px;
+            height: 3em; /* Fixed height for two lines of text */
+            overflow: hidden;
+        }
+        .price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .add-cart-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        
+        /* Filter Modal (Reused from Mechanic Search) */
+        .filter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: scroll;
+            display: none; 
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .close-btn { background: none; border: none; font-size: 1.5em; cursor: pointer; }
+        .filter-group { margin-bottom: 20px; padding: 10px; border: 1px solid #eee; border-radius: var(--border-radius);}
+        .filter-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .filter-group select, .filter-group input { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        .apply-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: white; border: none; border-radius: var(--border-radius); font-weight: bold; }
+
+        /* Bottom Nav - Reused */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            text-decoration: none;
+        }
+        .nav-item i {
+            font-size: 1.5em;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <input type="text" placeholder="Search by Part Name or Model (e.g., Honda Civic Brake Pad)" class="search-input">
+        <button class="filter-btn" onclick="openFilterModal()">
+            <i class="fas fa-filter"></i>
+        </button>
+    </div>
+
+    <div class="results-list">
+        <div class="results-header">
+            <p>128 Products Found</p>
+            <select style="border: none; font-weight: bold;" onchange="alert('Sorting by: ' + this.value)">
+                <option value="relevance">Sort by Relevance</option>
+                <option value="price_low">Price: Low to High</option>
+                <option value="newest">Newest Listings</option>
+            </select>
+        </div>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <a href="product_detail.html?id=1"><img src="" alt="Part 1 Placeholder"></a>
+                <h4>Front Ceramic Brake Pads (2016-2021 Civic)</h4>
+                <div class="price">$34.99</div>
+                <button class="add-cart-btn" onclick="addToCart('Brake Pads')">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <a href="product_detail.html?id=2"><img src="" alt="Part 2 Placeholder"></a>
+                <h4>Cabin Air Filter - All Models (Used)</h4>
+                <div class="price">$15.00</div>
+                <button class="add-cart-btn" onclick="addToCart('Cabin Filter')">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <a href="product_detail.html?id=3"><img src="" alt="Part 3 Placeholder"></a>
+                <h4>High Performance Oil Filter</h4>
+                <div class="price">$19.50</div>
+                <button class="add-cart-btn" onclick="addToCart('Oil Filter')">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <a href="product_detail.html?id=4"><img src="" alt="Part 4 Placeholder"></a>
+                <h4>Spark Plug Set (4-Cylinder Engines)</h4>
+                <div class="price">$55.00</div>
+                <button class="add-cart-btn" onclick="addToCart('Spark Plugs')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-modal" id="filter-modal">
+        <div class="modal-header">
+            <h2>Part Filters</h2>
+            <button class="close-btn" onclick="closeFilterModal()">&times;</button>
+        </div>
+        
+        <form onsubmit="applyFilters(event)">
+            <p style="font-weight: bold; color: var(--primary-color);">Filter by Vehicle Compatibility:</p>
+            <div class="filter-group">
+                <label for="make">Make</label>
+                <input type="text" id="make" placeholder="e.g., Honda">
+            </div>
+            <div class="filter-group">
+                <label for="model">Model</label>
+                <input type="text" id="model" placeholder="e.g., Civic">
+            </div>
+            <div class="filter-group">
+                <label for="year">Year</label>
+                <input type="number" id="year" placeholder="e.g., 2018">
+            </div>
+            
+            <p style="font-weight: bold; color: var(--primary-color); margin-top: 30px;">Filter by Part Details:</p>
+            <div class="filter-group">
+                <label for="condition">Condition</label>
+                <select id="condition">
+                    <option value="new">New</option>
+                    <option value="used">Used</option>
+                    <option value="">Both</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="price-max">Max Price</label>
+                <input type="number" id="price-max" placeholder="$50.00">
+            </div>
+            
+            <button type="submit" class="apply-btn">Apply Filters</button>
+        </form>
+    </div>
+
+
+    <div class="bottom-nav">
+        <a href="motorist_dashboard.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="mechanic_search.html" class="nav-item active"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="my_bookings.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Bookings</span></a>
+        <a href="my_orders.html" class="nav-item"><i class="fas fa-shopping-cart"></i><span>Cart</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+    </div>
+
+    <script>
+        // JS for filter modal (reused logic)
+        function openFilterModal() {
+            document.getElementById('filter-modal').style.display = 'block';
+        }
+
+        function closeFilterModal() {
+            document.getElementById('filter-modal').style.display = 'none';
+        }
+
+        function applyFilters(event) {
+            event.preventDefault();
+            closeFilterModal();
+            alert('Part filters applied and product list updated.');
+        }
+        
+        function addToCart(partName) {
+            alert(`Added ${partName} to cart!`);
+        }
+    </script>
+
+</body>
+</html>
