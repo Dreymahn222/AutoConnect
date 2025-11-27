@@ -1,43 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoConnect - Home</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoConnect - Find a Mechanic</title>
+    <style>
+        /* ------------------------------------- */
+        /* 1. CSS Reset & Mobile-First Defaults */
+        /* ------------------------------------- */
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --bg-light: #f4f7f6;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ------------------------------------- */
+        /* 2. Header & Navigation */
+        /* ------------------------------------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.9em;
+        }
+
+        .hamburger {
+            font-size: 1.8em;
+            cursor: pointer;
+            padding-right: 15px;
+        }
+
+        /* Hide full menu on mobile, show auth links */
+        .desktop-nav { display: none; }
+        .mobile-menu-icon { display: block; }
+
+        /* ------------------------------------- */
+        /* 3. Hero and Search */
+        /* ------------------------------------- */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column; /* Stacks inputs vertically on mobile */
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+        }
+
+        .search-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        /* ------------------------------------- */
+        /* 4. Feature Highlights */
+        /* ------------------------------------- */
+        .features {
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column; /* Vertical stacking for features on mobile */
+            gap: 20px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card i {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* ------------------------------------- */
+        /* 5. Desktop Overrides (Optional for testing, mainly mobile focus here) */
+        /* ------------------------------------- */
+        @media (min-width: 768px) {
+            .mobile-menu-icon { display: none; }
+            .desktop-nav { display: flex; align-items: center; }
+            .search-container { flex-direction: row; } /* Horizontal alignment on desktop */
+            .features { flex-direction: row; } /* Horizontal alignment on desktop */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1>AutoConnect</h1>
-    <nav>
-      <div id="menuToggle">☰</div>
-      <ul id="navMenu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">Search</a></li>
-        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
-        <li><a href="messages.html">Messages</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="container">
-    <section class="card center">
-      <h2>Featured Parts</h2>
+    <header class="header">
+        <div class="mobile-menu-icon hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">AutoConnect</div>
+        <div class="desktop-nav">
+            <a href="#">Find a Mechanic</a>
+            <a href="#">Find Parts</a>
+            <a href="#">How It Works</a>
+        </div>
+        <div class="nav-links">
+            <a href="#">Log In</a>
+            <a href="#" class="btn-signup">Sign Up</a>
+        </div>
+    </header>
 
-      <div class="search-result-item card center">
-        <p>Brake Pads</p>
-        <p>$70</p>
-        <button class="btn" onclick="addToCart('Brake Pads', 70)">Add to Cart</button>
-      </div>
+    <main>
+        <section class="hero">
+            <h1>Your Car Needs Help? We've Got You Covered.</h1>
+            <p>Connect with trusted mechanics or find the parts you need.</p>
+            
+            <div class="search-container">
+                <input type="text" id="service-input" class="search-input" placeholder="Search for service or part...">
+                <input type="text" id="location-input" class="search-input" placeholder="Near Me / Enter Location">
+                <button class="search-btn" onclick="handleSearch()">Search</button>
+            </div>
+        </section>
 
-      <div class="search-result-item card center">
-        <p>Oil Filter</p>
-        <p>$20</p>
-        <button class="btn" onclick="addToCart('Oil Filter', 20)">Add to Cart</button>
-      </div>
-    </section>
-  </main>
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-wrench"></i>
+                <h3>Find Local Mechanics</h3>
+                <p>Browse certified professionals by location & specialty.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cogs"></i>
+                <h3>Shop Auto Parts</h3>
+                <p>Discover new & used parts from sellers nationwide.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Transparent Pricing</h3>
+                <p>Read real reviews & get upfront quotes for services.</p>
+            </div>
+        </section>
 
-  <script src="app.js"></script>
+        <section class="hero" style="background-color: white; margin-top: 30px;">
+            <h2>Are you a Mechanic?</h2>
+            <button class="search-btn" style="background-color: var(--primary-color); margin-top: 15px;">List Your Services & Inventory</button>
+        </section>
+    </main>
+
+    <script>
+        function handleSearch() {
+            const service = document.getElementById('service-input').value;
+            const location = document.getElementById('location-input').value;
+
+            if (service.trim() === "" && location.trim() === "") {
+                alert("Please enter a service, part, or location to search.");
+                return;
+            }
+
+            // In a real application, this would redirect or fetch data
+            console.log(`Searching for: ${service} at ${location}`);
+            alert(`Simulating search for "${service}" in "${location}"`);
+        }
+
+        function toggleMenu() {
+            // Placeholder function to show/hide the mobile navigation menu
+            alert("Mobile Menu Toggled (In a real app, this would slide out the navigation).");
+        }
+    </script>
+
 </body>
 </html>
