@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Home</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoConnect - Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>AutoConnect</h1>
+    <nav>
+      <div id="menuToggle">☰</div>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
+        <li><a href="messages.html">Messages</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header class="header">
-  <a class="brand" href="index.html">MechMarket</a>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <nav class="nav" id="navMenu">
-    <a href="index.html" class="active">Home</a>
-    <a href="search.html">Search</a>
-    <a href="mechanic.html">Mechanics</a>
-    <a href="item.html">Parts</a>
-    <a href="messages.html">Messages</a>
-    <a href="login.html">Login</a>
-    <a href="cart.html">Cart <span id="cart-badge"></span></a>
-  </nav>
-</header>
+  <main class="container">
+    <section class="card center">
+      <h2>Featured Parts</h2>
 
-<main class="container">
-  <section class="card">
-    <h1>Welcome to MechMarket</h1>
-    <p>Find mechanics, book services, and buy auto parts easily.</p>
-  </section>
+      <div class="search-result-item card center">
+        <p>Brake Pads</p>
+        <p>$70</p>
+        <button class="btn" onclick="addToCart('Brake Pads', 70)">Add to Cart</button>
+      </div>
 
-  <section class="card">
-    <h2>Featured Mechanics</h2>
-    <div class="grid">
-      <div class="card center">Joe Auto Repairs</div>
-      <div class="card center">FastFix Mechanics</div>
-      <div class="card center">Quick Service Garage</div>
-    </div>
-  </section>
+      <div class="search-result-item card center">
+        <p>Oil Filter</p>
+        <p>$20</p>
+        <button class="btn" onclick="addToCart('Oil Filter', 20)">Add to Cart</button>
+      </div>
+    </section>
+  </main>
 
-  <section class="card">
-    <h2>Featured Parts</h2>
-    <div class="grid">
-      <div class="card center">Brake Pads</div>
-      <div class="card center">Oil Filter</div>
-      <div class="card center">Alternator</div>
-    </div>
-  </section>
-
-  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
