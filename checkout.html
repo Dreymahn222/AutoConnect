@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MechMarket — Checkout</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - AutoConnect</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>AutoConnect</h1>
+    <nav>
+      <div id="menuToggle">☰</div>
+      <ul id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="cart.html">Cart <span id="cart-badge"></span></a></li>
+        <li><a href="messages.html">Messages</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header class="header">
-  <a class="brand" href="index.html">MechMarket</a>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <nav class="nav" id="navMenu">
-    <a href="index.html">Home</a>
-    <a href="search.html">Search</a>
-    <a href="mechanic.html">Mechanics</a>
-    <a href="item.html">Parts</a>
-    <a href="messages.html">Messages</a>
-    <a href="login.html">Login</a>
-    <a href="cart.html" class="active">Cart</a>
-  </nav>
-</header>
+  <main class="container">
+    <section class="card" id="checkout-card">
+      <h2>Checkout</h2>
+      <div id="checkout-items"></div>
 
-<main class="container">
-  <section class="card">
-    <h2>Checkout</h2>
-    <div class="form-group">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Your Name">
-    </div>
-    <div class="form-group">
-      <label for="address">Shipping Address</label>
-      <input type="text" id="address" placeholder="Address">
-    </div>
-    <div class="form-group">
-      <label for="card">Payment Method</label>
-      <select id="card">
-        <option value="visa">Visa</option>
-        <option value="mastercard">MasterCard</option>
-        <option value="paypal">PayPal</option>
-      </select>
-    </div>
-    <button class="btn">Place Order</button>
-  </section>
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Your Name">
+      </div>
+      <div class="form-group">
+        <label for="address">Shipping Address</label>
+        <input type="text" id="address" placeholder="Address">
+      </div>
+      <div class="form-group">
+        <label for="card">Payment Method</label>
+        <select id="card">
+          <option value="visa">Visa</option>
+          <option value="mastercard">MasterCard</option>
+          <option value="paypal">PayPal</option>
+        </select>
+      </div>
+      <button class="btn" id="place-order-btn">Place Order</button>
+    </section>
+  </main>
 
-  <footer class="footer card center">© 2025 MechMarket • About • Contact • Terms</footer>
-</main>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
